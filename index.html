@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《穿成惡毒女配後，偶像突然愛上我了？》</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+        
+        body, html {
+            background-color: #000000;
+            font-family: 'PingFang TC', 'Microsoft JhengHei', serif;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* 遊戲畫框 */
+        #game-container {
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            position: relative;
+            display: none; 
+        }
+
+        /* 點擊進入的前置畫面 (用來解鎖音樂) */
+        #init-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #111;
+            color: #d4af37;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            z-index: 100;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        /* 封面畫面區塊 */
+        #cover-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* ▼▼▼ 請將單引號內的網址換成你的圖片直接連結 ▼▼▼ */
+            background-image: url('https://i.ibb.co/nNzFx9KD/77-E17-E51-BA81-4-B70-B786-2-C247-F4-B7161.png'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 12vh;
+            z-index: 10;
+            transition: opacity 1s ease;
+        }
+
+        /* 開始選單按鈕 */
+        .menu-btn {
+            background: rgba(0, 0, 0, 0.7);
+            color: #f7e0b5;
+            border: 1px solid #d4af37;
+            padding: 12px 0;
+            width: 60%;
+            margin: 10px 0;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            text-align: center;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .menu-btn:active {
+            background: #d4af37;
+            color: #000;
+            transform: scale(0.95);
+        }
+
+        /* 遊戲主畫面區塊 */
+        #game-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1a1a1a;
+            display: none;
+            z-index: 5;
+        }
+
+        /* 預設對話框 */
+        #dialogue-box {
+            position: absolute;
+            bottom: 3vh;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            min-height: 130px;
+            background: rgba(10, 10, 10, 0.85);
+            border: 1px solid #d4af37;
+            border-radius: 12px;
+            padding: 15px 20px;
+            color: #fff;
+        }
+
+        #speaker-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #f7e0b5;
+            margin-bottom: 8px;
+        }
+
+        #dialogue-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 音樂播放器 -->
+    <!-- ▼▼▼ 這裡我先放了一首免費的鋼琴測試音樂，你可以把 src 裡的網址換成你的 .mp3 網址 ▼▼▼ -->
+    <audio id="bgm" loop>
+        <source src="https://www.image2url.com/r2/default/audio/1786578073145-4ceb75f9-f219-432e-a187-bc50cbe7130f.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 前置解鎖畫面 -->
+    <div id="init-screen" onclick="initGame()">
+        ▼ 點擊螢幕進入遊戲 ▼
+    </div>
+
+    <div id="game-container">
+        <!-- 封面主選單 -->
+        <div id="cover-screen">
+            <div class="menu-btn" onclick="startGame()">開始遊戲</div>
+            <div class="menu-btn" onclick="alert('目前尚無存檔紀錄！')">讀取進度</div>
+        </div>
+
+        <!-- 進入遊戲後的畫面 -->
+        <div id="game-screen">
+            <div id="dialogue-box">
+                <div id="speaker-name">系統提示</div>
+                <div id="dialogue-text">歡迎進入《穿成惡毒女配後，偶像突然愛上我了？》<br><br>請點擊螢幕繼續...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 阻止預設的滾動行為
+        document.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+
+        // 解鎖音樂並顯示封面
+        function initGame() {
+            const initScreen = document.getElementById('init-screen');
+            const gameContainer = document.getElementById('game-container');
+            const bgm = document.getElementById('bgm');
+
+            // 播放音樂
+            bgm.play().catch(error => {
+                console.log("音樂播放失敗", error);
+            });
+
+            // 隱藏前置畫面，顯示封面
+            initScreen.style.display = 'none';
+            gameContainer.style.display = 'block';
+        }
+
+        // 開始遊戲，封面淡出
+        function startGame() {
+            const cover = document.getElementById('cover-screen');
+            const gameScreen = document.getElementById('game-screen');
+            
+            cover.style.opacity = '0';
+            
+            setTimeout(() => {
+                cover.style.display = 'none';
+                gameScreen.style.display = 'block';
+            }, 1000); 
+        }
+    </script>
+</body>
+</html>
