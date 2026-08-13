@@ -38,7 +38,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #111;
+            background-color: #050505;
             color: #d4af37;
             display: flex;
             justify-content: center;
@@ -51,9 +51,9 @@
         }
 
         @keyframes pulse {
-            0% { opacity: 0.6; }
+            0% { opacity: 0.5; }
             50% { opacity: 1; }
-            100% { opacity: 0.6; }
+            100% { opacity: 0.5; }
         }
 
         /* 封面畫面區塊 */
@@ -65,25 +65,31 @@
             height: 100%;
             /* ▼▼▼ 請將單引號內的網址換成你的圖片直接連結 ▼▼▼ */
             background-image: url('https://i.ibb.co/nNzFx9KD/77-E17-E51-BA81-4-B70-B786-2-C247-F4-B7161.png'); 
-            background-size: cover;
-            background-position: center;
+            
+            /* --- 修改這裡解決裁切問題 --- */
+            background-size: contain;      /* 保證圖片完整顯示，絕不裁切 */
+            background-position: center top; /* 圖片靠上方對齊 */
+            background-repeat: no-repeat;  /* 防止圖片重複拼貼 */
+            background-color: #000000;     /* 圖片底下的空白處填補純黑底色 */
+            /* ------------------------ */
+            
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             align-items: center;
-            padding-bottom: 12vh;
+            padding-bottom: 8vh; /* 調整按鈕高度，避免擋到圖片文字 */
             z-index: 10;
             transition: opacity 1s ease;
         }
 
         /* 開始選單按鈕 */
         .menu-btn {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(15, 15, 15, 0.85);
             color: #f7e0b5;
             border: 1px solid #d4af37;
             padding: 12px 0;
-            width: 60%;
-            margin: 10px 0;
+            width: 65%;
+            margin: 8px 0;
             border-radius: 30px;
             font-size: 1.1rem;
             letter-spacing: 4px;
@@ -92,7 +98,7 @@
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
         }
 
         .menu-btn:active {
@@ -145,7 +151,7 @@
 <body>
 
     <!-- 音樂播放器 -->
-    <!-- ▼▼▼ 這裡我先放了一首免費的鋼琴測試音樂，你可以把 src 裡的網址換成你的 .mp3 網址 ▼▼▼ -->
+    <!-- ▼▼▼ 把 src 裡的網址換成你的 .mp3 網址 ▼▼▼ -->
     <audio id="bgm" loop>
         <source src="https://www.image2url.com/r2/default/audio/1786578073145-4ceb75f9-f219-432e-a187-bc50cbe7130f.mp3" type="audio/mpeg">
     </audio>
