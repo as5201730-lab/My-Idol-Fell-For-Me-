@@ -75,16 +75,16 @@
             transition: opacity 1s ease;
         }
 
-        /* 封面圖片：改用 contain，保證周圍的字完全不被裁切 */
+        /* 關鍵修改：使用 scale 縮放微調，讓上下填滿但左右內縮，保護字體不被裁切 */
         #cover-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: contain; 
+            object-fit: cover; 
             object-position: center;
-            background-color: #000000;
+            transform: scale(0.93); /* 微調縮放比例，讓左右邊界完全釋放出來 */
             z-index: 1;
         }
 
@@ -140,16 +140,16 @@
             transition: opacity 1s ease;
         }
 
-        /* 章節選擇背景圖片：同樣使用 contain，確保不裁切 */
+        /* 章節選擇背景圖片：同樣套用防裁切微縮放 */
         #chapter-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             object-position: center;
-            background-color: #000000;
+            transform: scale(0.93);
             z-index: 1;
         }
 
