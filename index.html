@@ -75,7 +75,7 @@
             transition: opacity 1s ease;
         }
 
-        /* 封面圖片：使用 contain 結合適當內縮，確保新圖片四周文字絕不被裁切 */
+        /* 封面圖片 */
         #cover-image {
             position: absolute;
             top: 0;
@@ -84,7 +84,7 @@
             height: 100%;
             object-fit: contain; 
             object-position: center;
-            transform: scale(0.94); /* 微調確保邊緣文字完美留存 */
+            transform: scale(0.94); 
             background-color: #000000;
             z-index: 1;
         }
@@ -102,7 +102,7 @@
             z-index: 2; 
         }
 
-        /* 共用按鈕樣式 (極致收窄版) */
+        /* 共用按鈕樣式 */
         .menu-btn {
             background: rgba(15, 15, 15, 0.75); 
             color: #f7e0b5;
@@ -141,7 +141,7 @@
             transition: opacity 1s ease;
         }
 
-        /* 章節選擇背景圖片：對應你的新圖片連結 */
+        /* 章節選擇背景圖片 */
         #chapter-image {
             position: absolute;
             top: 0;
@@ -155,7 +155,7 @@
             z-index: 1;
         }
 
-        /* 章節選單按鈕容器 (完美置中) */
+        /* 章節選單按鈕容器 */
         #chapter-buttons {
             position: absolute;
             top: 50%; 
@@ -216,9 +216,14 @@
 </head>
 <body>
 
-    <!-- 音樂播放器 -->
+    <!-- 音樂播放器 (BGM) -->
     <audio id="bgm" loop>
         <source src="https://www.image2url.com/r2/default/audio/1786578073145-4ceb75f9-f219-432e-a187-bc50cbe7130f.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 按鈕音效 (新加入) -->
+    <audio id="btn-sound">
+        <source src="https://www.image2url.com/r2/default/audio/1786655918722-f02a2e61-c002-4974-bf23-4e88002c1402.mp3" type="audio/mpeg">
     </audio>
 
     <!-- 前置解鎖畫面 -->
@@ -228,18 +233,19 @@
 
     <div id="game-container">
         
-        <!-- 1. 封面主選單 (已更新為你的新圖片) -->
+        <!-- 1. 封面主選單 -->
         <div id="cover-screen">
             <img id="cover-image" src="https://i.ibb.co/M581JPXy/78503-AE6-72-F3-4916-BBB8-03447-DF94-DFE.png" alt="遊戲封面">
             <div id="menu-buttons">
                 <div class="menu-btn" onclick="goToChapterScreen()">開始遊戲</div>
-                <div class="menu-btn" onclick="alert('目前尚無存檔紀錄！')">讀取進度</div>
+                <!-- 讀取進度按鈕加入音效播放 -->
+                <div class="menu-btn" onclick="playBtnSound(); alert('目前尚無存檔紀錄！')">讀取進度</div>
             </div>
         </div>
 
-        <!-- 2. 章節選擇與人物介紹畫面 (已更新為你的新圖片) -->
+        <!-- 2. 章節選擇與人物介紹畫面 -->
         <div id="chapter-screen">
-            <img id="chapter-image" src="https://i.ibb.co/60kTsc49/3-E25-D517-6694-415-E-9-BCA-EDE45948-C249.png" alt="章節背景">
+            <img id="chapter-image" src="https://i.ibb.co/M581JPXy/78503-AE6-72-F3-4916-BBB8-03447-DF94-DFE.png" alt="章節背景">
             <div id="chapter-buttons">
                 <div class="menu-btn" onclick="showCharacters()">人物介紹</div>
                 <div class="menu-btn" onclick="startPrologue()">序章</div>
@@ -262,6 +268,13 @@
             e.preventDefault();
         }, { passive: false });
 
+        // 播放按鈕音效的共用函數
+        function playBtnSound() {
+            const btnSound = document.getElementById('btn-sound');
+            btnSound.currentTime = 0; // 每次點擊都從頭播放
+            btnSound.play().catch(error => console.log("按鈕音效播放失敗", error));
+        }
+
         // 解鎖音樂
         function initGame() {
             const initScreen = document.getElementById('init-screen');
@@ -276,8 +289,9 @@
             gameContainer.style.display = 'block';
         }
 
-        // 封面點擊「開始遊戲」 -> 進入章節選擇畫面
+        // 封面點擊「開始遊戲」
         function goToChapterScreen() {
+            playBtnSound(); // 播放音效
             const cover = document.getElementById('cover-screen');
             const chapterScreen = document.getElementById('chapter-screen');
             
@@ -295,11 +309,13 @@
 
         // 點擊「人物介紹」
         function showCharacters() {
+            playBtnSound(); // 播放音效
             alert('人物介紹建置中，敬請期待！');
         }
 
-        // 點擊「序章」 -> 進入遊戲對話畫面
+        // 點擊「序章」
         function startPrologue() {
+            playBtnSound(); // 播放音效
             const chapterScreen = document.getElementById('chapter-screen');
             const gameScreen = document.getElementById('game-screen');
             
