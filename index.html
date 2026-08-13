@@ -43,7 +43,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             letter-spacing: 2px;
             z-index: 100;
             cursor: pointer;
@@ -68,49 +68,52 @@
             transition: opacity 1s ease;
         }
 
-        /* 實體圖片標籤：滿版、置中、絕對不裁切 */
+        /* 實體圖片標籤 */
         #cover-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* 讓圖片盡可能放大，並維持原本比例置中 */
             object-fit: contain; 
             object-position: center;
             z-index: 1;
         }
 
-        /* 按鈕群組容器：直接懸浮在圖片的下半部 */
+        /* 按鈕群組容器 */
         #menu-buttons {
             position: absolute;
-            bottom: 8vh; /* 距離螢幕底部的距離，可依喜好微調 */
+            bottom: 6vh; /* 稍微往下移一點，避開海報中間的字 */
             left: 0;
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 2; /* 確保按鈕浮在圖片上方 */
+            z-index: 2; 
         }
 
-        /* 開始選單按鈕 */
+        /* 開始選單按鈕 (調整為精緻小巧版) */
         .menu-btn {
-            background: rgba(15, 15, 15, 0.75); /* 半透明黑底，讓背景圖透出來 */
+            background: rgba(15, 15, 15, 0.75); 
             color: #f7e0b5;
             border: 1px solid #d4af37;
-            padding: 14px 0;
-            width: 65%;
-            margin: 8px 0;
-            border-radius: 30px;
-            font-size: 1.1rem;
+            
+            /* --- 修改這裡讓按鈕變小 --- */
+            padding: 10px 0;       /* 讓按鈕變薄 */
+            width: 45%;            /* 縮小寬度，避開左右兩側文字 */
+            margin: 6px 0;         /* 縮小按鈕之間的間距 */
+            font-size: 0.95rem;    /* 字體稍微縮小 */
+            /* ------------------------ */
+
             letter-spacing: 4px;
             text-align: center;
             cursor: pointer;
-            backdrop-filter: blur(6px); /* 毛玻璃特效，讓疊在圖上也不會看不清字 */
+            border-radius: 25px;
+            backdrop-filter: blur(6px); 
             -webkit-backdrop-filter: blur(6px);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 10px rgba(212, 175, 55, 0.15);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6), 0 0 8px rgba(212, 175, 55, 0.2);
         }
 
         .menu-btn:active {
