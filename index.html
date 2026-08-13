@@ -68,7 +68,7 @@
             transition: opacity 1s ease;
         }
 
-        /* 封面實體圖片標籤 */
+        /* 封面實體圖片標籤 (確保不裁切) */
         #cover-image {
             position: absolute;
             top: 0;
@@ -93,7 +93,7 @@
             z-index: 2; 
         }
 
-        /* 共用按鈕樣式 (極致收窄版) */
+        /* 共用按鈕樣式 */
         .menu-btn {
             background: rgba(15, 15, 15, 0.75); 
             color: #f7e0b5;
@@ -125,28 +125,36 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* 新的背景圖片 */
-            background-image: url('https://i.ibb.co/60kTsc49/3-E25-D517-6694-415-E-9-BCA-EDE45948-C249.png');
-            background-size: cover; 
-            background-position: center;
-            display: none; /* 預設隱藏 */
+            background-color: #000000;
+            display: none; 
             z-index: 8;
             opacity: 0;
             transition: opacity 1s ease;
         }
 
-        /* 章節選單按鈕容器 (置中顯示) */
+        /* 章節選單實體圖片標籤 (比照封面，絕對不裁切) */
+        #chapter-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            z-index: 1;
+        }
+
+        /* 章節選單按鈕容器 (懸浮在圖片上) */
         #chapter-buttons {
             position: absolute;
-            top: 50%; 
-            left: 50%;
-            transform: translate(-50%, -50%);
+            bottom: 8vh; 
+            left: 0;
+            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 100%;
-            gap: 15px; /* 按鈕之間的間距稍微拉開 */
+            z-index: 2;
         }
 
         /* --- 遊戲對話主畫面區塊 --- */
@@ -216,8 +224,9 @@
             </div>
         </div>
 
-        <!-- 2. 章節選擇與人物介紹畫面 (新加入) -->
+        <!-- 2. 章節選擇與人物介紹畫面 (使用 img 標籤確保不裁切) -->
         <div id="chapter-screen">
+            <img id="chapter-image" src="https://i.ibb.co/60kTsc49/3-E25-D517-6694-415-E-9-BCA-EDE45948-C249.png" alt="章節選單背景">
             <div id="chapter-buttons">
                 <div class="menu-btn" onclick="showCharacters()">人物介紹</div>
                 <div class="menu-btn" onclick="startPrologue()">序章</div>
@@ -259,14 +268,12 @@
             const cover = document.getElementById('cover-screen');
             const chapterScreen = document.getElementById('chapter-screen');
             
-            // 封面淡出
             cover.style.opacity = '0';
             
             setTimeout(() => {
                 cover.style.display = 'none';
                 chapterScreen.style.display = 'block';
                 
-                // 讓新畫面淡入
                 setTimeout(() => {
                     chapterScreen.style.opacity = '1';
                 }, 50);
@@ -283,14 +290,12 @@
             const chapterScreen = document.getElementById('chapter-screen');
             const gameScreen = document.getElementById('game-screen');
             
-            // 章節畫面淡出
             chapterScreen.style.opacity = '0';
             
             setTimeout(() => {
                 chapterScreen.style.display = 'none';
                 gameScreen.style.display = 'block';
                 
-                // 遊戲畫面淡入
                 setTimeout(() => {
                     gameScreen.style.opacity = '1';
                 }, 50);
