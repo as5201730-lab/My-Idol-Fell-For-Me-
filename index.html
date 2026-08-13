@@ -75,16 +75,17 @@
             transition: opacity 1s ease;
         }
 
-        /* 關鍵修改：使用 scale 縮放微調，讓上下填滿但左右內縮，保護字體不被裁切 */
+        /* 封面圖片：使用 contain 結合適當內縮，確保新圖片四周文字絕不被裁切 */
         #cover-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; 
+            object-fit: contain; 
             object-position: center;
-            transform: scale(0.93); /* 微調縮放比例，讓左右邊界完全釋放出來 */
+            transform: scale(0.94); /* 微調確保邊緣文字完美留存 */
+            background-color: #000000;
             z-index: 1;
         }
 
@@ -140,16 +141,17 @@
             transition: opacity 1s ease;
         }
 
-        /* 章節選擇背景圖片：同樣套用防裁切微縮放 */
+        /* 章節選擇背景圖片：對應你的新圖片連結 */
         #chapter-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             object-position: center;
-            transform: scale(0.93);
+            transform: scale(0.94);
+            background-color: #000000;
             z-index: 1;
         }
 
@@ -226,7 +228,7 @@
 
     <div id="game-container">
         
-        <!-- 1. 封面主選單 -->
+        <!-- 1. 封面主選單 (已更新為你的新圖片) -->
         <div id="cover-screen">
             <img id="cover-image" src="https://i.ibb.co/M581JPXy/78503-AE6-72-F3-4916-BBB8-03447-DF94-DFE.png" alt="遊戲封面">
             <div id="menu-buttons">
@@ -235,9 +237,9 @@
             </div>
         </div>
 
-        <!-- 2. 章節選擇與人物介紹畫面 -->
+        <!-- 2. 章節選擇與人物介紹畫面 (已更新為你的新圖片) -->
         <div id="chapter-screen">
-            <img id="chapter-image" src="https://i.ibb.co/60kTsc49/3-E25-D517-6694-415-E-9-BCA-EDE45948-C249.png" alt="章節背景">
+            <img id="chapter-image" src="https://i.ibb.co/M581JPXy/78503-AE6-72-F3-4916-BBB8-03447-DF94-DFE.png" alt="章節背景">
             <div id="chapter-buttons">
                 <div class="menu-btn" onclick="showCharacters()">人物介紹</div>
                 <div class="menu-btn" onclick="startPrologue()">序章</div>
