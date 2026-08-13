@@ -68,8 +68,8 @@
             transition: opacity 1s ease;
         }
 
-        /* 封面實體圖片標籤 (確保不裁切) */
-        #cover-image {
+        /* 封面實體圖片標籤 (9:16 完美比例) */
+        .game-img {
             position: absolute;
             top: 0;
             left: 0;
@@ -132,22 +132,10 @@
             transition: opacity 1s ease;
         }
 
-        /* 章節選單實體圖片標籤 (比照封面，絕對不裁切) */
-        #chapter-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: center;
-            z-index: 1;
-        }
-
-        /* 章節選單按鈕容器 (懸浮在圖片上) */
+        /* 章節選單按鈕容器 (置中顯示在圖片上) */
         #chapter-buttons {
             position: absolute;
-            bottom: 8vh; 
+            bottom: 12vh; /* 讓按鈕靠下方，避免擋到主視覺 */
             left: 0;
             width: 100%;
             display: flex;
@@ -155,6 +143,7 @@
             align-items: center;
             justify-content: center;
             z-index: 2;
+            gap: 10px;
         }
 
         /* --- 遊戲對話主畫面區塊 --- */
@@ -217,16 +206,16 @@
         
         <!-- 1. 封面主選單 -->
         <div id="cover-screen">
-            <img id="cover-image" src="https://i.ibb.co/nNzFx9KD/77-E17-E51-BA81-4-B70-B786-2-C247-F4-B7161.png" alt="遊戲封面">
+            <img class="game-img" src="https://i.ibb.co/nNzFx9KD/77-E17-E51-BA81-4-B70-B786-2-C247-F4-B7161.png" alt="遊戲封面">
             <div id="menu-buttons">
                 <div class="menu-btn" onclick="goToChapterScreen()">開始遊戲</div>
                 <div class="menu-btn" onclick="alert('目前尚無存檔紀錄！')">讀取進度</div>
             </div>
         </div>
 
-        <!-- 2. 章節選擇與人物介紹畫面 (使用 img 標籤確保不裁切) -->
+        <!-- 2. 章節選擇與人物介紹畫面 (採用 9:16 圖片規則) -->
         <div id="chapter-screen">
-            <img id="chapter-image" src="https://i.ibb.co/60kTsc49/3-E25-D517-6694-415-E-9-BCA-EDE45948-C249.png" alt="章節選單背景">
+            <img class="game-img" src="https://i.ibb.co/60kTsc49/3-E25-D517-6694-415-E-9-BCA-EDE45948-C249.png" alt="章節選單背景">
             <div id="chapter-buttons">
                 <div class="menu-btn" onclick="showCharacters()">人物介紹</div>
                 <div class="menu-btn" onclick="startPrologue()">序章</div>
