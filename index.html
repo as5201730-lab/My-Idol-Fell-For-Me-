@@ -2,6 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
+    <!-- 確保手機版比例正確且不可縮放 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>《穿成惡毒女配後，偶像突然愛上我了？》</title>
     <style>
@@ -56,30 +57,38 @@
             100% { opacity: 0.5; }
         }
 
-        /* 封面畫面區塊 */
+        /* --- 封面畫面區塊 (全新排版方式) --- */
         #cover-screen {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* ▼▼▼ 請將單引號內的網址換成你的圖片直接連結 ▼▼▼ */
-            background-image: url('https://i.ibb.co/nNzFx9KD/77-E17-E51-BA81-4-B70-B786-2-C247-F4-B7161.png'); 
-            
-            /* --- 修改這裡解決裁切問題 --- */
-            background-size: contain;      /* 保證圖片完整顯示，絕不裁切 */
-            background-position: center top; /* 圖片靠上方對齊 */
-            background-repeat: no-repeat;  /* 防止圖片重複拼貼 */
-            background-color: #000000;     /* 圖片底下的空白處填補純黑底色 */
-            /* ------------------------ */
-            
+            background-color: #000000;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
             align-items: center;
-            padding-bottom: 8vh; /* 調整按鈕高度，避免擋到圖片文字 */
+            justify-content: flex-start;
             z-index: 10;
             transition: opacity 1s ease;
+        }
+
+        /* 實體圖片標籤，保證絕不裁切 */
+        #cover-image {
+            width: 100%;
+            max-height: 75vh; /* 限制圖片最高只佔螢幕 75%，保留下方空間給按鈕 */
+            object-fit: contain; /* 保證圖片完整比例縮放 */
+            margin-top: 2vh;
+        }
+
+        /* 按鈕群組容器 */
+        #menu-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            flex-grow: 1; /* 自動填滿下方剩餘空間 */
         }
 
         /* 開始選單按鈕 */
@@ -150,8 +159,7 @@
 </head>
 <body>
 
-    <!-- 音樂播放器 -->
-    <!-- ▼▼▼ 把 src 裡的網址換成你的 .mp3 網址 ▼▼▼ -->
+    <!-- 音樂播放器 (已帶入你的專屬網址) -->
     <audio id="bgm" loop>
         <source src="https://www.image2url.com/r2/default/audio/1786578073145-4ceb75f9-f219-432e-a187-bc50cbe7130f.mp3" type="audio/mpeg">
     </audio>
@@ -164,8 +172,13 @@
     <div id="game-container">
         <!-- 封面主選單 -->
         <div id="cover-screen">
-            <div class="menu-btn" onclick="startGame()">開始遊戲</div>
-            <div class="menu-btn" onclick="alert('目前尚無存檔紀錄！')">讀取進度</div>
+            <!-- 封面圖片 (已帶入你的專屬網址) -->
+            <img id="cover-image" src="https://i.ibb.co/nNzFx9KD/77-E17-E51-BA81-4-B70-B786-2-C247-F4-B7161.png" alt="遊戲封面">
+            
+            <div id="menu-buttons">
+                <div class="menu-btn" onclick="startGame()">開始遊戲</div>
+                <div class="menu-btn" onclick="alert('目前尚無存檔紀錄！')">讀取進度</div>
+            </div>
         </div>
 
         <!-- 進入遊戲後的畫面 -->
@@ -178,7 +191,7 @@
     </div>
 
     <script>
-        // 阻止預設的滾動行為
+        // 阻止預設的滾動行為，讓畫面像真正的 App
         document.addEventListener('touchmove', function(e) {
             e.preventDefault();
         }, { passive: false });
