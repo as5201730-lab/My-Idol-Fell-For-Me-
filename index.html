@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>《穿成惡毒女配後，偶像突然愛上我了？》</title>
+    
+    <!-- ▼▼▼ 新增的網站分頁小圖示 (Favicon) ▼▼▼ -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/v4BpwcHP/A0209-F04-0-FA9-4907-B7-D4-365-F414-EDDC1.png">
+    
     <style>
         * {
             box-sizing: border-box;
@@ -221,7 +225,7 @@
         <source src="https://www.image2url.com/r2/default/audio/1786578073145-4ceb75f9-f219-432e-a187-bc50cbe7130f.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- 按鈕音效 (新加入) -->
+    <!-- 按鈕音效 -->
     <audio id="btn-sound">
         <source src="https://www.image2url.com/r2/default/audio/1786655918722-f02a2e61-c002-4974-bf23-4e88002c1402.mp3" type="audio/mpeg">
     </audio>
@@ -238,7 +242,6 @@
             <img id="cover-image" src="https://i.ibb.co/M581JPXy/78503-AE6-72-F3-4916-BBB8-03447-DF94-DFE.png" alt="遊戲封面">
             <div id="menu-buttons">
                 <div class="menu-btn" onclick="goToChapterScreen()">開始遊戲</div>
-                <!-- 讀取進度按鈕加入音效播放 -->
                 <div class="menu-btn" onclick="playBtnSound(); alert('目前尚無存檔紀錄！')">讀取進度</div>
             </div>
         </div>
@@ -271,7 +274,7 @@
         // 播放按鈕音效的共用函數
         function playBtnSound() {
             const btnSound = document.getElementById('btn-sound');
-            btnSound.currentTime = 0; // 每次點擊都從頭播放
+            btnSound.currentTime = 0; 
             btnSound.play().catch(error => console.log("按鈕音效播放失敗", error));
         }
 
@@ -291,7 +294,7 @@
 
         // 封面點擊「開始遊戲」
         function goToChapterScreen() {
-            playBtnSound(); // 播放音效
+            playBtnSound(); 
             const cover = document.getElementById('cover-screen');
             const chapterScreen = document.getElementById('chapter-screen');
             
@@ -309,13 +312,13 @@
 
         // 點擊「人物介紹」
         function showCharacters() {
-            playBtnSound(); // 播放音效
+            playBtnSound(); 
             alert('人物介紹建置中，敬請期待！');
         }
 
         // 點擊「序章」
         function startPrologue() {
-            playBtnSound(); // 播放音效
+            playBtnSound(); 
             const chapterScreen = document.getElementById('chapter-screen');
             const gameScreen = document.getElementById('game-screen');
             
