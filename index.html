@@ -15,7 +15,7 @@
         }
         
         body, html {
-            background-color: #0b0b0b; /* 外層極深色背景 */
+            background-color: #0b0b0b; 
             font-family: 'PingFang TC', 'Microsoft JhengHei', serif;
             width: 100%;
             height: 100%;
@@ -25,20 +25,20 @@
             overflow: hidden;
         }
 
-        /* 遊戲核心畫框：強制鎖定標準 9:16 比例，完美置中 */
+        /* 遊戲核心畫框：標準 9:16 比例 */
         #game-container {
             position: relative;
             width: 100vw;
             height: 100vh;
-            max-width: calc(100vh * (9 / 16)); /* 自動計算配合高度的 9:16 寬度 */
-            max-height: calc(100vw * (16 / 9)); /* 自動計算配合寬度的 16:9 高度 */
+            max-width: calc(100vh * (9 / 16));
+            max-height: calc(100vw * (16 / 9));
             background-color: #000;
             overflow: hidden;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
-            display: none; /* 點擊前置畫面後顯示 */
+            display: none; 
         }
 
-        /* 點擊進入的前置畫面 (解鎖音樂用) */
+        /* 點擊進入的前置畫面 */
         #init-screen {
             position: fixed;
             top: 0;
@@ -75,15 +75,16 @@
             transition: opacity 1s ease;
         }
 
-        /* 封面圖片：強制填滿 9:16 框但不變形 */
+        /* 封面圖片：改用 contain，保證周圍的字完全不被裁切 */
         #cover-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 確保 9:16 比例填滿遊戲框 */
+            object-fit: contain; 
             object-position: center;
+            background-color: #000000;
             z-index: 1;
         }
 
@@ -139,19 +140,20 @@
             transition: opacity 1s ease;
         }
 
-        /* 章節選擇背景圖片：填滿 9:16 框 */
+        /* 章節選擇背景圖片：同樣使用 contain，確保不裁切 */
         #chapter-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             object-position: center;
+            background-color: #000000;
             z-index: 1;
         }
 
-        /* 章節選單按鈕容器 (完美置中於 9:16 框正中央) */
+        /* 章節選單按鈕容器 (完美置中) */
         #chapter-buttons {
             position: absolute;
             top: 50%; 
