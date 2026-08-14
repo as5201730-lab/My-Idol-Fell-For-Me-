@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>《穿成惡毒女配後，偶像突然愛上我了？》</title>
     
-    <!-- ▼▼▼ 強制顯示分頁小圖示的最強寫法 ▼▼▼ -->
-    <link rel="icon" type="image/png" href="https://i.ibb.co/s9VqWyrh/2-C8-DD889-FA91-45-EE-9-B53-FD1-A4197-D0-B0.png">
-    <link rel="shortcut icon" href="https://i.ibb.co/s9VqWyrh/2-C8-DD889-FA91-45-EE-9-B53-FD1-A4197-D0-B0.png">
-    <link rel="apple-touch-icon" href="https://i.ibb.co/s9VqWyrh/2-C8-DD889-FA91-45-EE-9-B53-FD1-A4197-D0-B0.png">
+    <!-- 強制顯示分頁小圖示 -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/v4BpwcHP/A0209-F04-0-FA9-4907-B7-D4-365-F414-EDDC1.png">
+    <link rel="shortcut icon" href="https://i.ibb.co/v4BpwcHP/A0209-F04-0-FA9-4907-B7-D4-365-F414-EDDC1.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/v4BpwcHP/A0209-F04-0-FA9-4907-B7-D4-365-F414-EDDC1.png">
     
     <style>
         * {
@@ -44,7 +44,7 @@
             display: none; 
         }
 
-        /* 點擊進入的前置畫面 */
+        /* 前置畫面 */
         #init-screen {
             position: fixed;
             top: 0;
@@ -72,171 +72,135 @@
         /* --- 封面畫面區塊 --- */
         #cover-screen {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000000;
-            z-index: 10;
-            transition: opacity 1s ease;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000000; z-index: 10; transition: opacity 1s ease;
         }
-
-        /* 封面圖片 */
         #cover-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain; 
-            object-position: center;
-            transform: scale(0.94); 
-            background-color: #000000;
-            z-index: 1;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: contain; object-position: center; transform: scale(0.94); 
+            background-color: #000000; z-index: 1;
         }
-
-        /* 封面按鈕群組容器 */
         #menu-buttons {
-            position: absolute;
-            bottom: 6vh; 
-            left: 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 2; 
+            position: absolute; bottom: 6vh; left: 0; width: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2; 
         }
 
         /* 共用按鈕樣式 */
         .menu-btn {
-            background: rgba(15, 15, 15, 0.75); 
-            color: #f7e0b5;
-            border: 1px solid #d4af37;
-            padding: 10px 0;       
-            width: 140px;          
-            margin: 6px 0;         
-            font-size: 0.95rem;    
-            letter-spacing: 4px;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 25px;
-            backdrop-filter: blur(6px); 
-            -webkit-backdrop-filter: blur(6px);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6), 0 0 8px rgba(212, 175, 55, 0.2);
+            background: rgba(15, 15, 15, 0.75); color: #f7e0b5; border: 1px solid #d4af37;
+            padding: 10px 0; width: 140px; margin: 6px 0; font-size: 0.95rem;    
+            letter-spacing: 4px; text-align: center; cursor: pointer; border-radius: 25px;
+            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+            transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6), 0 0 8px rgba(212, 175, 55, 0.2);
         }
+        .menu-btn:active { background: #d4af37; color: #000; transform: scale(0.95); }
 
-        .menu-btn:active {
-            background: #d4af37;
-            color: #000;
-            transform: scale(0.95);
-        }
-
-        /* --- 進入遊戲後的「主選單 / 章節選擇」畫面 --- */
+        /* --- 章節選擇畫面 --- */
         #chapter-screen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000000;
-            display: none; 
-            z-index: 8;
-            opacity: 0;
-            transition: opacity 1s ease;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000000; display: none; z-index: 8; opacity: 0; transition: opacity 1s ease;
         }
-
-        /* 章節選擇背景圖片 */
         #chapter-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: center;
-            transform: scale(0.94);
-            background-color: #000000;
-            z-index: 1;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: contain; object-position: center; transform: scale(0.94);
+            background-color: #000000; z-index: 1;
         }
-
-        /* 章節選單按鈕容器 */
         #chapter-buttons {
-            position: absolute;
-            top: 50%; 
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            width: 100%; gap: 15px; z-index: 2;
+        }
+
+        /* --- 人物介紹介面 (新增) --- */
+        #character-screen {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://i.ibb.co/M581JPXy/78503-AE6-72-F3-4916-BBB8-03447-DF94-DFE.png');
+            background-size: cover; background-position: center;
+            display: none; z-index: 20; opacity: 0; transition: opacity 0.4s ease;
+        }
+        /* 毛玻璃遮罩 */
+        .char-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 1;
+        }
+        .char-content {
+            position: relative; z-index: 2; width: 100%; height: 100%; 
+            display: flex; flex-direction: column;
+        }
+        .char-header {
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 20px 25px; border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+        .char-header h2 {
+            color: #d4af37; font-size: 1.2rem; letter-spacing: 3px; font-weight: normal; margin: 0;
+        }
+        .close-btn {
+            color: #f7e0b5; border: 1px solid #d4af37; padding: 6px 16px; border-radius: 20px; 
+            font-size: 0.9rem; letter-spacing: 2px; cursor: pointer; transition: 0.2s;
+        }
+        .close-btn:active { background: #d4af37; color: #000; }
+        
+        /* 滾動列表 */
+        .char-list {
+            flex: 1; overflow-y: auto; padding: 15px 20px; padding-bottom: 40px;
+        }
+        /* 隱藏原生滾動條，保持美觀 */
+        .char-list::-webkit-scrollbar { width: 4px; }
+        .char-list::-webkit-scrollbar-track { background: transparent; }
+        .char-list::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.5); border-radius: 4px; }
+
+        /* 角色卡片 */
+        .char-card {
+            display: flex; background: rgba(20, 20, 20, 0.65); border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             align-items: center;
-            justify-content: center;
-            width: 100%;
-            gap: 15px; 
-            z-index: 2;
+        }
+        .char-img {
+            width: 75px; height: 75px; border-radius: 50%; object-fit: cover; object-position: top;
+            border: 2px solid #d4af37; flex-shrink: 0; margin-right: 15px; box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+        }
+        .char-info { display: flex; flex-direction: column; justify-content: center; }
+        .char-name {
+            color: #f7e0b5; font-size: 1.1rem; font-weight: bold; margin-bottom: 6px; letter-spacing: 1px;
+        }
+        .char-age-job {
+            font-size: 0.75rem; color: #a89a7c; font-weight: normal; margin-left: 8px; letter-spacing: 0;
+        }
+        .char-desc {
+            color: #ccc; font-size: 0.85rem; line-height: 1.5; text-align: justify;
         }
 
-        /* --- 遊戲對話主畫面區塊 --- */
+        /* --- 遊戲主畫面 --- */
         #game-screen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #1a1a1a;
-            display: none;
-            z-index: 5;
-            opacity: 0;
-            transition: opacity 1s ease;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #1a1a1a; display: none; z-index: 5; opacity: 0; transition: opacity 1s ease;
         }
-
-        /* 預設對話框 */
         #dialogue-box {
-            position: absolute;
-            bottom: 3vh;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            min-height: 130px;
-            background: rgba(10, 10, 10, 0.85);
-            border: 1px solid #d4af37;
-            border-radius: 12px;
-            padding: 15px 20px;
-            color: #fff;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            position: absolute; bottom: 3vh; left: 50%; transform: translateX(-50%); width: 90%; min-height: 130px;
+            background: rgba(10, 10, 10, 0.85); border: 1px solid #d4af37; border-radius: 12px;
+            padding: 15px 20px; color: #fff; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
         }
-
-        #speaker-name {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #f7e0b5;
-            margin-bottom: 8px;
-        }
-
-        #dialogue-text {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #ddd;
-        }
+        #speaker-name { font-size: 1.1rem; font-weight: bold; color: #f7e0b5; margin-bottom: 8px; }
+        #dialogue-text { font-size: 1rem; line-height: 1.6; color: #ddd; }
     </style>
 </head>
 <body>
 
-    <!-- 音樂播放器 (BGM) -->
+    <!-- 音效區塊 -->
     <audio id="bgm" loop>
         <source src="https://www.image2url.com/r2/default/audio/1786578073145-4ceb75f9-f219-432e-a187-bc50cbe7130f.mp3" type="audio/mpeg">
     </audio>
-
-    <!-- 按鈕音效 -->
     <audio id="btn-sound">
         <source src="https://www.image2url.com/r2/default/audio/1786655918722-f02a2e61-c002-4974-bf23-4e88002c1402.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- 前置解鎖畫面 -->
+    <!-- 點擊進入前置畫面 -->
     <div id="init-screen" onclick="initGame()">
         ▼ 點擊螢幕進入遊戲 ▼
     </div>
 
+    <!-- 遊戲主容器 -->
     <div id="game-container">
         
         <!-- 1. 封面主選單 -->
@@ -248,16 +212,112 @@
             </div>
         </div>
 
-        <!-- 2. 章節選擇與人物介紹畫面 -->
+        <!-- 2. 章節選擇畫面 -->
         <div id="chapter-screen">
-            <img id="chapter-image" src="https://i.ibb.co/60kTsc49/3-E25-D517-6694-415-E-9-BCA-EDE45948-C249.png" alt="章節背景">
+            <img id="chapter-image" src="https://i.ibb.co/M581JPXy/78503-AE6-72-F3-4916-BBB8-03447-DF94-DFE.png" alt="章節背景">
             <div id="chapter-buttons">
-                <div class="menu-btn" onclick="showCharacters()">人物介紹</div>
+                <div class="menu-btn" onclick="openCharacters()">人物介紹</div>
                 <div class="menu-btn" onclick="startPrologue()">序章</div>
             </div>
         </div>
 
-        <!-- 3. 進入遊戲後的對話畫面 -->
+        <!-- 3. 人物介紹介面 (滾動式清單) -->
+        <div id="character-screen">
+            <div class="char-overlay"></div>
+            <div class="char-content">
+                <div class="char-header">
+                    <h2>角色情報</h2>
+                    <div class="close-btn" onclick="closeCharacters()">返回</div>
+                </div>
+                <!-- 角色列表容器 (允許上下滾動) -->
+                <div class="char-list">
+                    
+                    <!-- 邊伯賢 -->
+                    <div class="char-card">
+                        <img src="https://i.ibb.co/xtfjBpyY/IMG-1155.jpg" class="char-img">
+                        <div class="char-info">
+                            <div class="char-name">邊伯賢<span class="char-age-job">30歲 | SOLO歌手</span></div>
+                            <div class="char-desc">備受矚目的頂流歌手兼演員，外表隨和愛笑，實則敏感驕傲，因誤解而對林家儀心存偏見，卻在失去她後才發現早已動心。</div>
+                        </div>
+                    </div>
+
+                    <!-- 林家儀 -->
+                    <div class="char-card">
+                        <img src="https://i.ibb.co/tMT8rwH3/IMG-1157.jpg" class="char-img">
+                        <div class="char-info">
+                            <div class="char-name">林家儀<span class="char-age-job">26歲 | 演員</span></div>
+                            <div class="char-desc">緋聞製造機，演技精湛卻不擅交際的年輕影后，在眾叛親離後意外穿越，成為自己曾經最厭惡的惡毒女配。</div>
+                        </div>
+                    </div>
+
+                    <!-- 朴燦烈 -->
+                    <div class="char-card">
+                        <img src="https://i.ibb.co/TDd1m1QT/IMG-1154.jpg" class="char-img">
+                        <div class="char-info">
+                            <div class="char-name">朴燦烈<span class="char-age-job">32歲 | 影帝</span></div>
+                            <div class="char-desc">早已陪伴林家儀多年的影帝，明知她不擅交際卻始終理解她，在所有人選擇懷疑她時，仍是那個毫不動搖站在她身邊的人。</div>
+                        </div>
+                    </div>
+
+                    <!-- 金智源 -->
+                    <div class="char-card">
+                        <img src="https://i.ibb.co/ynnJCDmT/IMG-1156.jpg" class="char-img">
+                        <div class="char-info">
+                            <div class="char-name">金智源<span class="char-age-job">28歲 | 樂團主唱</span></div>
+                            <div class="char-desc">性格開朗討喜的當紅歌手，表面單純善良、實則勝負欲與佔有慾極強，為留住邊伯賢的信任，不惜設計陷害林家儀。</div>
+                        </div>
+                    </div>
+
+                    <!-- 系統001 -->
+                    <div class="char-card">
+                        <img src="https://i.ibb.co/3YNgwSnp/78-E82446-D027-4734-9-CE6-438-C754-BBD65.png" class="char-img" style="object-fit: contain; background: #000;">
+                        <div class="char-info">
+                            <div class="char-name">系統001<span class="char-age-job">穿劇輔助系統</span></div>
+                            <div class="char-desc">以黑貓形象出現的神秘快穿系統，表面萌系可愛、實則藏著不為人知的秘密，負責引導林家儀完成攻略任務。</div>
+                        </div>
+                    </div>
+
+                    <!-- 王銀 -->
+                    <div class="char-card">
+                        <img src="https://i.ibb.co/QjkWnD42/623-DA5-B5-FDA9-4900-93-EA-2-F2566-F9483-D.png" class="char-img">
+                        <div class="char-info">
+                            <div class="char-name">王銀<span class="char-age-job">17歲 | 十皇子</span></div>
+                            <div class="char-desc">受盡寵愛的高麗十皇子，驕縱任性又貪玩怕事，原本抗拒與朴順德成婚，卻在相處中逐漸愛上她，也因姜檀開始動搖。</div>
+                        </div>
+                    </div>
+
+                    <!-- 姜檀 -->
+                    <div class="char-card">
+                        <img src="https://i.ibb.co/ZtkQw3s/9898581-A-9428-4-F18-8-DF8-44053-B14-D0-BA.png" class="char-img">
+                        <div class="char-info">
+                            <div class="char-name">姜檀<span class="char-age-job">16歲 | 掌樂院女樂</span></div>
+                            <div class="char-desc">出身卑微卻憑歌喉入宮的驕縱女樂，為愛不擇手段，最終成為林家儀穿越後必須重新改寫命運的身份。</div>
+                        </div>
+                    </div>
+
+                    <!-- 金泰 -->
+                    <div class="char-card">
+                        <img src="https://i.ibb.co/P2YSYGp/IMG-1266.jpg" class="char-img">
+                        <div class="char-info">
+                            <div class="char-name">金泰<span class="char-age-job">18歲 | 禁軍武官</span></div>
+                            <div class="char-desc">出身名門武將世家的禁軍武官，沉穩寡言，曾默默守護姜檀，卻在林家儀穿越後察覺她的改變，依舊選擇護她周全。</div>
+                        </div>
+                    </div>
+
+                    <!-- 朴順德 -->
+                    <div class="char-card">
+                        <img src="https://i.ibb.co/1JMXVL0J/8372-E611-E737-4-F9-A-B9-CC-44-FA703801-FD.png" class="char-img">
+                        <div class="char-info">
+                            <div class="char-name">朴順德<span class="char-age-job">17歲 | 大將軍之女</span></div>
+                            <div class="char-desc">出身將軍世家的爽朗少女，自幼喜愛捕獵並傾心於王銀，面對他的嫌棄依然毫不退縮，最終成為他最真心的妻子。</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 遊戲對話畫面 -->
         <div id="game-screen">
             <div id="dialogue-box" onclick="alert('序章劇情載入中...')">
                 <div id="speaker-name">系統提示</div>
@@ -268,71 +328,72 @@
     </div>
 
     <script>
-        // 阻止預設的滾動行為
+        // 防止手機端拖拽網頁回彈
         document.addEventListener('touchmove', function(e) {
+            // 例外處理：讓人物列表可以滾動
+            if (e.target.closest('.char-list')) return; 
             e.preventDefault();
         }, { passive: false });
 
-        // 播放按鈕音效的共用函數
+        // 播放按鈕音效
         function playBtnSound() {
             const btnSound = document.getElementById('btn-sound');
             btnSound.currentTime = 0; 
             btnSound.play().catch(error => console.log("按鈕音效播放失敗", error));
         }
 
-        // 解鎖音樂
+        // 點擊螢幕初始化遊戲
         function initGame() {
             const initScreen = document.getElementById('init-screen');
             const gameContainer = document.getElementById('game-container');
             const bgm = document.getElementById('bgm');
 
-            bgm.play().catch(error => {
-                console.log("音樂播放失敗", error);
-            });
-
+            bgm.play().catch(error => console.log("音樂播放失敗", error));
             initScreen.style.display = 'none';
             gameContainer.style.display = 'block';
         }
 
-        // 封面點擊「開始遊戲」
+        // 進入章節選擇
         function goToChapterScreen() {
             playBtnSound(); 
             const cover = document.getElementById('cover-screen');
             const chapterScreen = document.getElementById('chapter-screen');
             
             cover.style.opacity = '0';
-            
             setTimeout(() => {
                 cover.style.display = 'none';
                 chapterScreen.style.display = 'block';
-                
-                setTimeout(() => {
-                    chapterScreen.style.opacity = '1';
-                }, 50);
+                setTimeout(() => chapterScreen.style.opacity = '1', 50);
             }, 1000); 
         }
 
-        // 點擊「人物介紹」
-        function showCharacters() {
-            playBtnSound(); 
-            alert('人物介紹建置中，敬請期待！');
+        // 打開人物介紹介面
+        function openCharacters() {
+            playBtnSound();
+            const charScreen = document.getElementById('character-screen');
+            charScreen.style.display = 'block';
+            setTimeout(() => charScreen.style.opacity = '1', 50);
         }
 
-        // 點擊「序章」
+        // 關閉人物介紹介面
+        function closeCharacters() {
+            playBtnSound();
+            const charScreen = document.getElementById('character-screen');
+            charScreen.style.opacity = '0';
+            setTimeout(() => charScreen.style.display = 'none', 400);
+        }
+
+        // 進入序章遊戲畫面
         function startPrologue() {
             playBtnSound(); 
             const chapterScreen = document.getElementById('chapter-screen');
             const gameScreen = document.getElementById('game-screen');
             
             chapterScreen.style.opacity = '0';
-            
             setTimeout(() => {
                 chapterScreen.style.display = 'none';
                 gameScreen.style.display = 'block';
-                
-                setTimeout(() => {
-                    gameScreen.style.opacity = '1';
-                }, 50);
+                setTimeout(() => gameScreen.style.opacity = '1', 50);
             }, 1000);
         }
     </script>
