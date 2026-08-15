@@ -24,7 +24,8 @@
             background-color: #0b0b0b; 
             font-family: 'PingFang TC', 'Microsoft JhengHei', serif;
             width: 100%;
-            height: 100%;
+            height: 100vh;
+            height: 100dvh; /* 加入動態高度，完美避開手機上下工具列 */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -34,9 +35,9 @@
         /* 遊戲核心畫框：標準 9:16 比例 */
         #game-container {
             position: relative;
-            width: 100vw;
-            height: 100vh;
-            max-width: calc(100vh * (9 / 16));
+            width: 100%;
+            height: 100%;
+            max-width: calc(100dvh * (9 / 16));
             max-height: calc(100vw * (16 / 9));
             background-color: #000;
             overflow: hidden;
@@ -47,7 +48,7 @@
         /* 前置畫面 */
         #init-screen {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: #000; color: #d4af37; display: flex;
+            height: 100dvh; background-color: #000; color: #d4af37; display: flex;
             justify-content: center; align-items: center; font-size: 1.1rem;
             letter-spacing: 2px; z-index: 100; cursor: pointer;
             animation: pulse 2s infinite;
@@ -60,9 +61,10 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #000000; z-index: 10; transition: opacity 1s ease;
         }
+        /* 封面圖片：填滿且不裁切 */
         #cover-image {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: contain; object-position: center; transform: scale(0.94); 
+            object-fit: fill; /* 強制貼齊邊框不裁切 */
             background-color: #000000; z-index: 1;
         }
         #menu-buttons {
@@ -85,9 +87,10 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #000000; display: none; z-index: 8; opacity: 0; transition: opacity 1s ease;
         }
+        /* 章節背景圖片：填滿且不裁切 */
         #chapter-image {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: contain; object-position: center; transform: scale(0.94);
+            object-fit: fill; /* 強制貼齊邊框不裁切 */
             background-color: #000000; z-index: 1;
         }
         #chapter-buttons {
@@ -96,9 +99,9 @@
             width: 100%; gap: 15px; z-index: 2;
         }
 
-        /* 左上角選單按鈕 */
+        /* 左上角系統選單按鈕 */
         #top-left-menu-btn {
-            position: absolute; top: 3vh; left: 5vw; width: 42px; height: 42px;
+            position: absolute; top: 20px; left: 20px; width: 40px; height: 40px;
             background: rgba(15, 15, 15, 0.75); border: 1px solid #d4af37; border-radius: 50%;
             color: #d4af37; display: flex; justify-content: center; align-items: center;
             font-size: 1.2rem; cursor: pointer; z-index: 5; backdrop-filter: blur(6px);
@@ -128,7 +131,8 @@
         #character-screen, #worldview-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://i.ibb.co/3yrFxt0V/image.png');
-            background-size: cover; background-position: center;
+            background-size: 100% 100%; /* 強制貼齊邊框不裁切 */
+            background-position: center; background-repeat: no-repeat;
             display: none; z-index: 20; opacity: 0; transition: opacity 0.4s ease;
         }
         .char-overlay {
@@ -258,7 +262,7 @@
         <div id="chapter-screen">
             <img id="chapter-image" src="https://i.ibb.co/3yrFxt0V/image.png" alt="章節背景">
             
-            <!-- 新增：左上角選單按鈕 -->
+            <!-- 左上角選單按鈕 -->
             <div id="top-left-menu-btn" onclick="openSubMenu()">☰</div>
 
             <div id="chapter-buttons">
@@ -506,7 +510,7 @@
             'wangeun': {
                 name: '王銀', ageJob: '17歲 | 高麗太祖王建第十皇子', img: 'https://i.ibb.co/1p6dZ10/image.png',
                 bg: '王銀是高麗太祖王建的第十皇子，自幼受父皇寵愛，性格驕縱任性，貪玩怕事，不喜歡權力鬥爭，只想過著無憂無慮的皇子生活。<br><br>得知自己即將與將軍之女朴順德成婚時，他滿心抗拒，甚至因害怕婚後被管束而百般嫌棄，卻在相處後逐漸被順德直率活潑的性格吸引，婚後說想和順德生兩男兩女，然後開一間童玩店。<br><br>就在這時，身為姜檀的你闖入他的世界。你看他的眼神總帶著他無法理解的熟悉與悲傷，明明總想躲著他，卻又一次次在危急時刻保護他。王銀逐漸發現，你似乎知道一些關於他的秘密，這個奇怪的女人開始讓他第一次產生了無法忽視的好奇。',
-                basic: '<ul><li>高麗太祖王建第十皇子，約於西元925年出生，是皇室中備受疼愛的皇子。</li><li>初戀是原著裡穿越來的宮女解樹。</li><li>942年奉命與將軍之女朴順德成婚。</li><li>性格驕縱任性、貪玩怕事，喜歡享受生活，不喜歡讀書與權力鬥爭。</li><li>嘴上總嫌朴順德粗魯、野蠻又愛管自己，實際上婚後逐漸習慣她陪在身邊。</li><li>與姜檀的關係：起初只覺得她古怪，後來逐漸發現她與原本的姜檀判若兩人，產生強烈好奇。</li><li>最大的弱點：看似什麼都不在乎，其實非常害怕失去自己珍惜的人；一旦真正動心，會比任何人都執著。</li><li>感情觀：不懂得如何認真表達愛意，習慣用鬥嘴與嘴硬掩飾在乎，面臨失去時才會明白自己有多愛對方。</li></ul>'
+                basic: '<ul><li>高麗太太祖王建第十皇子，約於西元925年出生，是皇室中備受疼愛的皇子。</li><li>初戀是原著裡穿越來的宮女解樹。</li><li>942年奉命與將軍之女朴順德成婚。</li><li>性格驕縱任性、貪玩怕事，喜歡享受生活，不喜歡讀書與權力鬥爭。</li><li>嘴上總嫌朴順德粗魯、野蠻又愛管自己，實際上婚後逐漸習慣她陪在身邊。</li><li>與姜檀的關係：起初只覺得她古怪，後來逐漸發現她與原本的姜檀判若兩人，產生強烈好奇。</li><li>最大的弱點：看似什麼都不在乎，其實非常害怕失去自己珍惜的人；一旦真正動心，會比任何人都執著。</li><li>感情觀：不懂得如何認真表達愛意，習慣用鬥嘴與嘴硬掩飾在乎，面臨失去時才會明白自己有多愛對方。</li></ul>'
             },
             'jiangtan': {
                 name: '姜檀', ageJob: '16歲 | 掌樂院女樂 (玩家視角)', img: 'https://i.ibb.co/nsdVWfz9/image.png',
