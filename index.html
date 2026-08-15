@@ -565,12 +565,12 @@
 
     </div>
 
-    <!-- 角色詳細資料與數值設定腳本 -->
+    <!-- 角色詳細資料與更新後的數值預設值設定腳本 -->
     <script>
         const charData = {
             'baekhyun': {
                 name: '邊伯賢', ageJob: '30歲 | SOLO歌手', img: 'https://i.ibb.co/4R5Gb29s/image.jpg',
-                bg: '邊伯賢是韓國娛樂圈頂流歌手兼演員...（略）', basic: '<ul><li>身高174cm、體重61kg。</li></ul>'
+                bg: '邊伯賢是韓國娛樂圈頂流歌手兼演員...', basic: '<ul><li>身高174cm、體重61kg。</li></ul>'
             },
             'linjiayi': { name: '林家儀', ageJob: '26歲 | 演員', img: 'https://i.ibb.co/6kZRnCn/image.jpg', bg: '', basic: '' },
             'chanyeol': { name: '朴燦烈', ageJob: '32歲 | 影帝', img: 'https://i.ibb.co/4RR4pQD1/image.jpg', bg: '', basic: '' },
@@ -582,15 +582,15 @@
             'sundeok': { name: '朴順德', ageJob: '17歲 | 將軍之女', img: 'https://i.ibb.co/spLyzGFk/image.png', bg: '', basic: '' }
         };
 
-        // 各角色對應數值資料庫 (對應你設定的 5 種數值規則)
+        // 各角色對應數值資料庫 (已更新為最新預設值)
         const characterStats = {
-            'baekhyun': { name: '邊伯賢', img: 'https://i.ibb.co/4R5Gb29s/image.jpg', stats: [ { label: '❤️ 好感度', val: '20' }, { label: '💙 信任度', val: '10' }, { label: '💗 心動值', val: '5' } ] },
-            'chanyeol': { name: '朴燦烈', img: 'https://i.ibb.co/4RR4pQD1/image.jpg', stats: [ { label: '❤️ 好感度', val: '60' }, { label: '💙 信任度', val: '75' }, { label: '💗 心動值', val: '30' } ] },
-            'jiwon': { name: '金智源', img: 'https://i.ibb.co/qY1Xf5KD/image.jpg', stats: [ { label: '❤️ 好感度', val: '10' }, { label: '💙 信任度', val: '5' } ] },
-            'wangeun': { name: '王銀', img: 'https://i.ibb.co/1p6dZ10/image.png', stats: [ { label: '❤️ 好感度', val: '15' }, { label: '💙 信任度', val: '20' }, { label: '💗 心動值', val: '0' }, { label: '🩸 生存值', val: '100%' } ] },
-            'jiangtan': { name: '姜檀 (玩家)', img: 'https://i.ibb.co/nsdVWfz9/image.png', stats: [ { label: '🩸 生存值', val: '100%' } ] },
-            'kimtae': { name: '金泰', img: 'https://i.ibb.co/VWgHCcdy/image.jpg', stats: [ { label: '❤️ 好感度', val: '40' }, { label: '💙 信任度', val: '50' }, { label: '💗 心動值', val: '15' }, { label: '🩸 生存值', val: '100%' } ] },
-            'sundeok': { name: '朴順德', img: 'https://i.ibb.co/spLyzGFk/image.png', stats: [ { label: '❤️ 好感度', val: '30' }, { label: '💙 信任度', val: '40' }, { label: '🩸 生存值', val: '100%' } ] },
+            'baekhyun': { name: '邊伯賢', img: 'https://i.ibb.co/4R5Gb29s/image.jpg', stats: [ { label: '❤️ 好感度', val: '10' }, { label: '💙 信任度', val: '5' }, { label: '💗 心動值', val: '0' } ] },
+            'chanyeol': { name: '朴燦烈', img: 'https://i.ibb.co/4RR4pQD1/image.jpg', stats: [ { label: '❤️ 好感度', val: '55' }, { label: '💙 信任度', val: '60' }, { label: '💗 心動值', val: '0' } ] },
+            'jiwon': { name: '金智源', img: 'https://i.ibb.co/qY1Xf5KD/image.jpg', stats: [ { label: '❤️ 好感度', val: '20' }, { label: '💙 信任度', val: '15' } ] },
+            'wangeun': { name: '王銀', img: 'https://i.ibb.co/1p6dZ10/image.png', stats: [ { label: '❤️ 好感度', val: '-20' }, { label: '💙 信任度', val: '10' }, { label: '💗 心動值', val: '0' }, { label: '🩸 生存值', val: '100' } ] },
+            'jiangtan': { name: '姜檀 (玩家)', img: 'https://i.ibb.co/nsdVWfz9/image.png', stats: [ { label: '🩸 生存值', val: '100' } ] },
+            'kimtae': { name: '金泰', img: 'https://i.ibb.co/VWgHCcdy/image.jpg', stats: [ { label: '❤️ 好感度', val: '40' }, { label: '💙 信任度', val: '50' }, { label: '💗 心動值', val: '0' }, { label: '🩸 生存值', val: '100' } ] },
+            'sundeok': { name: '朴順德', img: 'https://i.ibb.co/spLyzGFk/image.png', stats: [ { label: '❤️ 好感度', val: '-30' }, { label: '💙 信任度', val: '5' }, { label: '🩸 生存值', val: '100' } ] },
             'sys001': { name: '系統001', img: 'https://i.ibb.co/TB1zdYpG/001.png', stats: [ { label: '⚠️ 劇情偏離度', val: '0%' } ] }
         };
 
@@ -649,7 +649,6 @@
             setTimeout(() => modal.style.display = 'none', 300);
         }
 
-        // --- 屬性畫面控制 ---
         function openStatusScreen() {
             playBtnSound();
             closeSubMenu();
