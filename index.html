@@ -25,14 +25,13 @@
             font-family: 'PingFang TC', 'Microsoft JhengHei', serif;
             width: 100%;
             height: 100vh;
-            height: 100dvh; /* 加入動態高度，完美避開手機上下工具列 */
+            height: 100dvh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
         }
 
-        /* 遊戲核心畫框：標準 9:16 比例 */
         #game-container {
             position: relative;
             width: 100%;
@@ -45,7 +44,6 @@
             display: none; 
         }
 
-        /* 前置畫面 */
         #init-screen {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             height: 100dvh; background-color: #000; color: #d4af37; display: flex;
@@ -56,23 +54,19 @@
 
         @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
 
-        /* --- 封面畫面區塊 --- */
         #cover-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #000000; z-index: 10; transition: opacity 1s ease;
         }
-        /* 封面圖片：填滿且不裁切 */
         #cover-image {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: fill; /* 強制貼齊邊框不裁切 */
-            background-color: #000000; z-index: 1;
+            object-fit: fill; background-color: #000000; z-index: 1;
         }
         #menu-buttons {
             position: absolute; bottom: 6vh; left: 0; width: 100%;
             display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2; 
         }
 
-        /* 共用按鈕樣式 */
         .menu-btn {
             background: rgba(15, 15, 15, 0.75); color: #f7e0b5; border: 1px solid #d4af37;
             padding: 10px 0; width: 140px; margin: 6px 0; font-size: 0.95rem;    
@@ -82,16 +76,13 @@
         }
         .menu-btn:active { background: #d4af37; color: #000; transform: scale(0.95); }
 
-        /* --- 章節選擇畫面 --- */
         #chapter-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #000000; display: none; z-index: 8; opacity: 0; transition: opacity 1s ease;
         }
-        /* 章節背景圖片：填滿且不裁切 */
         #chapter-image {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: fill; /* 強制貼齊邊框不裁切 */
-            background-color: #000000; z-index: 1;
+            object-fit: fill; background-color: #000000; z-index: 1;
         }
         #chapter-buttons {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -99,7 +90,6 @@
             width: 100%; gap: 15px; z-index: 2;
         }
 
-        /* 左上角系統選單按鈕 */
         #top-left-menu-btn {
             position: absolute; top: 20px; left: 20px; width: 40px; height: 40px;
             background: rgba(15, 15, 15, 0.75); border: 1px solid #d4af37; border-radius: 50%;
@@ -127,12 +117,60 @@
         }
         .submenu-close:active { color: #d4af37; }
 
+        /* --- 屬性介面 (Status Screen) --- */
+        #status-screen {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://i.ibb.co/3yrFxt0V/image.png');
+            background-size: 100% 100%; background-position: center; background-repeat: no-repeat;
+            display: none; z-index: 30; opacity: 0; transition: opacity 0.4s ease;
+        }
+        .status-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;
+            padding: 20px; overflow-y: auto; flex: 1;
+        }
+        .status-card {
+            background: rgba(20, 20, 20, 0.75); border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px; padding: 12px; display: flex; align-items: center;
+            cursor: pointer; transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .status-card:active { transform: scale(0.97); background: rgba(40, 40, 40, 0.9); }
+        .status-avatar {
+            width: 55px; height: 55px; border-radius: 50%; object-fit: cover; object-position: top;
+            border: 2px solid #d4af37; margin-right: 12px; flex-shrink: 0; box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+        }
+        .status-info { display: flex; flex-direction: column; justify-content: center; }
+        .status-name { color: #f7e0b5; font-size: 1rem; font-weight: bold; margin-bottom: 4px; letter-spacing: 1px; }
+        .status-tag { color: #a89a7c; font-size: 0.7rem; }
+
+        /* 單一角色詳細數值 Modal */
+        #status-detail-modal {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 5, 0.92); z-index: 35; display: none; opacity: 0; transition: opacity 0.3s ease;
+            flex-direction: column; justify-content: center; align-items: center; padding: 20px;
+        }
+        .detail-box {
+            background: rgba(20, 20, 20, 0.95); border: 1px solid #d4af37; border-radius: 15px;
+            width: 85%; max-width: 320px; padding: 25px; display: flex; flex-direction: column; align-items: center;
+            box-shadow: 0 0 25px rgba(0,0,0,0.8), 0 0 15px rgba(212, 175, 55, 0.2); position: relative;
+        }
+        .detail-avatar-large {
+            width: 85px; height: 85px; border-radius: 50%; object-fit: cover; object-position: top;
+            border: 3px solid #d4af37; margin-bottom: 12px; box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+        }
+        .detail-title { color: #f7e0b5; font-size: 1.2rem; margin-bottom: 15px; letter-spacing: 2px; }
+        .stat-row {
+            display: flex; justify-content: space-between; width: 100%; padding: 8px 0;
+            border-bottom: 1px dashed rgba(212, 175, 55, 0.3); color: #ddd; font-size: 0.95rem;
+        }
+        .stat-row:last-child { border-bottom: none; }
+        .stat-value { color: #f7e0b5; font-weight: bold; }
+
         /* --- 人物介紹 / 背景介紹 共通底圖設定 --- */
         #character-screen, #worldview-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://i.ibb.co/3yrFxt0V/image.png');
-            background-size: 100% 100%; /* 強制貼齊邊框不裁切 */
-            background-position: center; background-repeat: no-repeat;
+            background-size: 100% 100%; background-position: center; background-repeat: no-repeat;
             display: none; z-index: 20; opacity: 0; transition: opacity 0.4s ease;
         }
         .char-overlay {
@@ -164,7 +202,6 @@
         .char-list::-webkit-scrollbar-track, .modal-scroll-area::-webkit-scrollbar-track { background: transparent; }
         .char-list::-webkit-scrollbar-thumb, .modal-scroll-area::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.5); border-radius: 4px; }
 
-        /* 人物卡片樣式 */
         .char-card {
             display: flex; background: rgba(20, 20, 20, 0.65); border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -180,7 +217,6 @@
         .char-age-job { font-size: 0.75rem; color: #a89a7c; font-weight: normal; margin-left: 8px; letter-spacing: 0; }
         .char-desc { color: #ccc; font-size: 0.85rem; line-height: 1.5; text-align: justify; }
 
-        /* 背景介紹 (世界觀) 專屬區塊樣式 */
         .world-section {
             background: rgba(20, 20, 20, 0.75); border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -192,7 +228,6 @@
         .world-section p:last-child { margin-bottom: 0; }
         .highlight { color: #f7e0b5; font-weight: bold; }
 
-        /* --- 角色詳情彈出視窗 (Modal) --- */
         #char-detail-modal {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(5, 5, 5, 0.95); z-index: 30; display: none; opacity: 0; transition: opacity 0.3s ease;
@@ -217,7 +252,6 @@
         .detail-text ul { padding-left: 20px; margin-top: 5px; }
         .detail-text li { margin-bottom: 8px; }
 
-        /* --- 遊戲主畫面 --- */
         #game-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #1a1a1a; display: none; z-index: 5; opacity: 0; transition: opacity 1s ease;
@@ -233,7 +267,6 @@
 </head>
 <body>
 
-    <!-- 音效區塊 -->
     <audio id="bgm" loop>
         <source src="https://www.image2url.com/r2/default/audio/1786744114303-cdcddd8c-c21f-497c-9bf3-d6ee05536180.mp3" type="audio/mpeg">
     </audio>
@@ -241,12 +274,10 @@
         <source src="https://www.image2url.com/r2/default/audio/1786655918722-f02a2e61-c002-4974-bf23-4e88002c1402.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- 點擊進入前置畫面 -->
     <div id="init-screen" onclick="initGame()">
         ▼ 點擊螢幕進入遊戲 ▼
     </div>
 
-    <!-- 遊戲主容器 -->
     <div id="game-container">
         
         <!-- 1. 封面主選單 -->
@@ -262,7 +293,6 @@
         <div id="chapter-screen">
             <img id="chapter-image" src="https://i.ibb.co/3yrFxt0V/image.png" alt="章節背景">
             
-            <!-- 左上角選單按鈕 -->
             <div id="top-left-menu-btn" onclick="openSubMenu()">☰</div>
 
             <div id="chapter-buttons">
@@ -279,7 +309,97 @@
                 <div class="submenu-close" onclick="closeSubMenu()">✕</div>
                 <h3>系統選單</h3>
                 <div class="menu-btn" onclick="playBtnSound(); alert('存檔功能建置中，敬請期待！')">存檔</div>
-                <div class="menu-btn" onclick="playBtnSound(); alert('屬性介面建置中，敬請期待！')">屬性</div>
+                <div class="menu-btn" onclick="openStatusScreen()">屬性</div>
+            </div>
+        </div>
+
+        <!-- 2.4. 屬性總覽介面 -->
+        <div id="status-screen">
+            <div class="char-overlay"></div>
+            <div class="char-content">
+                <div class="char-header">
+                    <h2>角色屬性數值</h2>
+                    <div class="close-btn" onclick="closeStatusScreen()">返回</div>
+                </div>
+                <div class="status-grid">
+                    
+                    <div class="status-card" onclick="openStatDetail('baekhyun')">
+                        <img src="https://i.ibb.co/4R5Gb29s/image.jpg" class="status-avatar">
+                        <div class="status-info">
+                            <div class="status-name">邊伯賢</div>
+                            <div class="status-tag">點擊查看屬性</div>
+                        </div>
+                    </div>
+
+                    <div class="status-card" onclick="openStatDetail('chanyeol')">
+                        <img src="https://i.ibb.co/4RR4pQD1/image.jpg" class="status-avatar">
+                        <div class="status-info">
+                            <div class="status-name">朴燦烈</div>
+                            <div class="status-tag">點擊查看屬性</div>
+                        </div>
+                    </div>
+
+                    <div class="status-card" onclick="openStatDetail('jiwon')">
+                        <img src="https://i.ibb.co/qY1Xf5KD/image.jpg" class="status-avatar">
+                        <div class="status-info">
+                            <div class="status-name">金智源</div>
+                            <div class="status-tag">點擊查看屬性</div>
+                        </div>
+                    </div>
+
+                    <div class="status-card" onclick="openStatDetail('wangeun')">
+                        <img src="https://i.ibb.co/1p6dZ10/image.png" class="status-avatar">
+                        <div class="status-info">
+                            <div class="status-name">王銀</div>
+                            <div class="status-tag">點擊查看屬性</div>
+                        </div>
+                    </div>
+
+                    <div class="status-card" onclick="openStatDetail('jiangtan')">
+                        <img src="https://i.ibb.co/nsdVWfz9/image.png" class="status-avatar">
+                        <div class="status-info">
+                            <div class="status-name">姜檀 (玩家)</div>
+                            <div class="status-tag">點擊查看屬性</div>
+                        </div>
+                    </div>
+
+                    <div class="status-card" onclick="openStatDetail('kimtae')">
+                        <img src="https://i.ibb.co/VWgHCcdy/image.jpg" class="status-avatar">
+                        <div class="status-info">
+                            <div class="status-name">金泰</div>
+                            <div class="status-tag">點擊查看屬性</div>
+                        </div>
+                    </div>
+
+                    <div class="status-card" onclick="openStatDetail('sundeok')">
+                        <img src="https://i.ibb.co/spLyzGFk/image.png" class="status-avatar">
+                        <div class="status-info">
+                            <div class="status-name">朴順德</div>
+                            <div class="status-tag">點擊查看屬性</div>
+                        </div>
+                    </div>
+
+                    <div class="status-card" onclick="openStatDetail('sys001')">
+                        <img src="https://i.ibb.co/TB1zdYpG/001.png" class="status-avatar" style="object-fit: contain; background: #000;">
+                        <div class="status-info">
+                            <div class="status-name">系統001</div>
+                            <div class="status-tag">點擊查看屬性</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 角色專屬屬性彈出視窗 -->
+        <div id="status-detail-modal">
+            <div class="detail-box">
+                <div class="submenu-close" onclick="closeStatDetail()">✕</div>
+                <img id="stat-modal-img" src="" class="detail-avatar-large">
+                <div id="stat-modal-name" class="detail-title">角色名稱</div>
+                <div id="stat-modal-content" style="width: 100%;">
+                    <!-- 動態載入數值 -->
+                </div>
             </div>
         </div>
 
@@ -292,70 +412,47 @@
                     <div class="close-btn" onclick="closeWorldview()">返回</div>
                 </div>
                 <div class="char-list">
-                    
                     <div class="world-section">
                         <h3>一、世界設定</h3>
                         <p><span class="highlight">現代世界｜2026年</span><br>林家儀是出道五年的知名女演員，憑藉外貌與演技在娛樂圈站穩腳跟，卻因緋聞、競爭與輿論陷入人生低谷，最終成為快穿事件的起點。</p>
                         <p><span class="highlight">高麗世界｜西元942年，太祖二十五年</span><br>這是一個以高麗歷史與《步步驚心・麗》為基礎形成的架空平行世界。此時高麗王建仍在位，皇室、王族、武將世家與宮廷勢力彼此牽制。<br><br>故事開始時，十皇子王銀剛與將軍之女朴順德成婚。<br>林家儀卻在此時穿越，成為原著中不存在的角色——姜檀。</p>
                     </div>
-
                     <div class="world-section">
                         <h3>二、世界特殊規則</h3>
                         <p>這個世界並非完全按照原劇情運行，而是以原著為基礎、會因人物選擇而改變的平行世界。</p>
                         <p>林家儀知道部分原著劇情與人物命運，但這裡的人並不知道自己是「劇中角色」。對他們而言，高麗就是唯一真實的世界。</p>
-                        <p>因此，一旦林家儀改變某個人的選擇，原本的劇情便可能產生蝴蝶效應，甚至出現原著沒有的結果。她以為自己穿進的是一部電視劇，卻逐漸發現這裡的人都有真正的人生。</p>
+                        <p>因此，一旦林家儀改變某個人的選擇，原本的劇情便可能產生蝴蝶效應，甚至出現原著沒有的結果。</p>
                     </div>
-
                     <div class="world-section">
                         <h3>三、王銀與朴順德</h3>
                         <p>十皇子王銀出身皇室，性格活潑直率，沒有強烈爭奪皇位的野心，珍惜身邊的人。</p>
-                        <p>朴順德則出身武將世家，是將軍之女，性格爽朗堅韌，自幼習武，與一般高麗貴族女子不同。</p>
-                        <p>兩人已經成婚，且感情深厚。這段婚姻卻成為原主姜檀嫉妒與執念的來源。</p>
+                        <p>朴順德則出身武將世家，是將軍之女，性格爽朗堅韌，自幼習武，與一般高麗貴族女子不同。兩人已經成婚，且感情深厚。</p>
                     </div>
-
                     <div class="world-section">
                         <h3>四、原主姜檀</h3>
-                        <p>姜檀原是高麗掌樂院中頗受矚目的女樂，擅長歌唱，因嗓音優美而經常受宮中貴族召見。她出身不高，卻因容貌與歌喉自視甚高，性格驕傲善妒。</p>
-                        <p>她深深愛慕十皇子王銀，卻因王銀與朴順德成婚而心生嫉妒。為得到王銀的注意，她曾在宴席上藉歌譏諷順德，甚至暗中設計陷害。一次次的嫉妒與算計，使她逐漸成為人人厭惡的惡毒女配。</p>
-                        <p>林家儀穿越後，繼承姜檀的身份與部分記憶，卻沒有繼承她對王銀的執念。她決定遠離王銀、不再傷害順德，只想改變姜檀原本悲慘的命運。</p>
+                        <p>姜檀原是高麗掌樂院中頗受矚目的女樂，擅長歌唱。她出身不高，卻因容貌與歌喉自視甚高，性格驕傲善妒。</p>
+                        <p>林家儀穿越後，繼承姜檀的身份與部分記憶，卻沒有繼承她對王銀的執念，只想改變姜檀原本悲慘的命運。</p>
                     </div>
-
                     <div class="world-section">
                         <h3>五、金泰</h3>
-                        <p>金泰出身高麗名門武將世家，自幼習武，成年後入宮擔任禁軍武官。他武藝出眾、性格沉穩，深受皇室信任，也因經常出入宮中而與十皇子王銀相識。</p>
-                        <p>王銀性格活潑，偶爾惹出麻煩，金泰常替他善後，兩人因此建立深厚情誼。</p>
-                        <p>金泰與原主姜檀也早已相識。姜檀身份卑微又性格驕縱，因一心愛慕王銀而屢次惹事。金泰卻始終默默替她善後，在她遭人欺辱時第一個站出來保護她。只是姜檀從未將這份感情放在心上。</p>
+                        <p>金泰出身高麗名門武將世家，成年後入宮擔任禁軍武官。他武藝出眾、性格沉穩，曾默默守護姜檀，在林家儀穿越後第一個察覺她的改變，始終默默護她周全。</p>
                     </div>
-
                     <div class="world-section">
                         <h3>六、林家儀與金泰</h3>
-                        <p>林家儀穿越後，第一個察覺「姜檀變了」的人就是金泰。</p>
-                        <p>明明是同一張臉，眼神與性格卻判若兩人。以前的姜檀為得到王銀不惜傷害他人，如今卻刻意與王銀保持距離；以前驕傲善妒，如今變得溫柔克制，甚至願意為保護別人將自己置於危險之中。</p>
-                        <p>金泰不知道她究竟經歷了什麼，也沒有追問。他只是比從前更加小心地守在她身旁。對他而言，不論她是否還是曾經的姜檀，只要她需要，他便會一直站在她身後。</p>
-                        <p>而林家儀也逐漸發現，這個曾被原主忽視的人，或許才是最早真正看見她的人。</p>
+                        <p>林家儀穿越後，金泰是第一個察覺她變了的人。他沒有追問，只是比從前更加小心地守在她身旁。</p>
                     </div>
-
                     <div class="world-section">
                         <h3>七、貓貓系統001</h3>
-                        <p>林家儀穿越後，腦海中出現神秘的系統001。它以可愛的貓咪形象出現，說話總帶著「喵嗚～」，卻掌握著這個世界大量未知的秘密。</p>
-                        <p>系統發布唯一主線任務：<br><span class="highlight">攻略十皇子王銀，取得他的真心。</span><br>任務成功：回到2026年的現實世界。<br>任務失敗：永久被困在942年的高麗世界。</p>
-                        <p>然而，王銀已經與朴順德成婚，而且兩人感情深厚。更讓林家儀困惑的是，她越想避開原著劇情，世界便越開始失控。</p>
+                        <p>系統001以可愛黑貓形象出現，說話帶著「喵嗚～」。發布唯一主線任務：<br><span class="highlight">攻略十皇子王銀，取得他的真心。</span><br>成功返回2026年，失敗則永久被困高麗。</p>
                     </div>
-
                     <div class="world-section">
                         <h3>八、劇情偏離</h3>
-                        <p>林家儀不再陷害朴順德，兩人反而逐漸成為朋友。<br>她刻意遠離王銀，王銀卻開始注意這個與傳聞完全不同的姜檀。<br>金泰則因察覺她的改變，逐漸將更多目光放在她身上。</p>
-                        <p>原本應該發生的事件開始改變：有人沒有死，有人提前相遇，有人愛上了原本不該愛的人。甚至連王銀與朴順德原本的命運，也開始出現偏差。</p>
+                        <p>隨著林家儀不再陷害順德、刻意遠離王銀，原本應該發生的事件開始產生蝴蝶效應，命運的走向逐漸失控。</p>
                     </div>
-
                     <div class="world-section">
                         <h3>九、世界核心</h3>
-                        <p>林家儀最初只想完成任務、回到2026年。</p>
-                        <p>可相處越久，她越無法將王銀、順德、金泰等人當成「角色」。他們不是劇本裡的名字，而是942年真正活著的人。</p>
-                        <p>而她也逐漸開始思考：<br>如果完成任務便能回到現實，是否代表她必須傷害這個世界的人？<br>如果選擇留下，又是否願意放棄2026年的人生？</p>
-                        <p>這是一個關於命運、選擇與真心的故事。當既定劇情開始崩壞，林家儀終將發現——<br><br><span class="highlight">她真正要改變的，或許從來不只是姜檀的命運，而是所有人的結局。</span></p>
+                        <p>這是一個關於命運、選擇與真心的故事。她真正要改變的，或許從來不只是姜檀的命運，而是所有人的結局。</p>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -368,9 +465,7 @@
                     <h2>角色情報</h2>
                     <div class="close-btn" onclick="closeCharacters()">返回</div>
                 </div>
-                <!-- 角色列表容器 (允許上下滾動) -->
                 <div class="char-list">
-                    
                     <div class="char-card" onclick="openCharDetail('baekhyun')">
                         <img src="https://i.ibb.co/4R5Gb29s/image.jpg" class="char-img">
                         <div class="char-info">
@@ -378,7 +473,6 @@
                             <div class="char-desc">備受矚目的頂流歌手兼演員，外表隨和愛笑，實則敏感驕傲，因誤解而對林家儀心存偏見，卻在失去她後才發現早已動心。</div>
                         </div>
                     </div>
-
                     <div class="char-card" onclick="openCharDetail('linjiayi')">
                         <img src="https://i.ibb.co/6kZRnCn/image.jpg" class="char-img">
                         <div class="char-info">
@@ -386,7 +480,6 @@
                             <div class="char-desc">緋聞製造機，演技精湛卻不擅交際的年輕影后，在眾叛親離後意外穿越，成為自己曾經最厭惡的惡毒女配。</div>
                         </div>
                     </div>
-
                     <div class="char-card" onclick="openCharDetail('chanyeol')">
                         <img src="https://i.ibb.co/4RR4pQD1/image.jpg" class="char-img">
                         <div class="char-info">
@@ -394,7 +487,6 @@
                             <div class="char-desc">早已陪伴林家儀多年的影帝，明知她不擅交際卻始終理解她，在所有人選擇懷疑她時，仍是那個毫不動搖站在她身邊的人。</div>
                         </div>
                     </div>
-
                     <div class="char-card" onclick="openCharDetail('jiwon')">
                         <img src="https://i.ibb.co/qY1Xf5KD/image.jpg" class="char-img">
                         <div class="char-info">
@@ -402,7 +494,6 @@
                             <div class="char-desc">性格開朗討喜的當紅歌手，表面單純善良、實則勝負欲與佔有慾極強，為留住邊伯賢的信任，不惜設計陷害林家儀。</div>
                         </div>
                     </div>
-
                     <div class="char-card" onclick="openCharDetail('sys001')">
                         <img src="https://i.ibb.co/TB1zdYpG/001.png" class="char-img" style="object-fit: contain; background: #000;">
                         <div class="char-info">
@@ -410,7 +501,6 @@
                             <div class="char-desc">以黑貓形象出現的神秘快穿系統，表面萌系可愛、實則藏著不為人知的秘密，負責引導林家儀完成攻略任務。</div>
                         </div>
                     </div>
-
                     <div class="char-card" onclick="openCharDetail('wangeun')">
                         <img src="https://i.ibb.co/1p6dZ10/image.png" class="char-img">
                         <div class="char-info">
@@ -418,7 +508,6 @@
                             <div class="char-desc">受盡寵愛的高麗十皇子，驕縱任性又貪玩怕事，原本抗拒與朴順德成婚，卻在相處中逐漸愛上她，也因姜檀開始動搖。</div>
                         </div>
                     </div>
-
                     <div class="char-card" onclick="openCharDetail('jiangtan')">
                         <img src="https://i.ibb.co/nsdVWfz9/image.png" class="char-img">
                         <div class="char-info">
@@ -426,7 +515,6 @@
                             <div class="char-desc">出身卑微卻憑歌喉入宮的驕縱女樂，為愛不擇手段，最終成為林家儀穿越後必須重新改寫命運的身份。</div>
                         </div>
                     </div>
-
                     <div class="char-card" onclick="openCharDetail('kimtae')">
                         <img src="https://i.ibb.co/VWgHCcdy/image.jpg" class="char-img">
                         <div class="char-info">
@@ -434,7 +522,6 @@
                             <div class="char-desc">出身名門武將世家的禁軍武官，沉穩寡言，曾默默守護姜檀，卻在林家儀穿越後察覺她的改變，依舊選擇護她周全。</div>
                         </div>
                     </div>
-
                     <div class="char-card" onclick="openCharDetail('sundeok')">
                         <img src="https://i.ibb.co/spLyzGFk/image.png" class="char-img">
                         <div class="char-info">
@@ -442,7 +529,6 @@
                             <div class="char-desc">出身將軍世家的爽朗少女，自幼喜愛捕獵並傾心於王銀，面對他的嫌棄依然毫不退縮，最終成為他最真心的妻子。</div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -479,80 +565,52 @@
 
     </div>
 
-    <!-- 儲存所有角色的詳細設定資料 -->
+    <!-- 角色詳細資料與數值設定腳本 -->
     <script>
         const charData = {
             'baekhyun': {
                 name: '邊伯賢', ageJob: '30歲 | SOLO歌手', img: 'https://i.ibb.co/4R5Gb29s/image.jpg',
-                bg: '邊伯賢是韓國娛樂圈頂流歌手兼演員，出道多年，憑藉實力與人氣站在圈內頂端。外表看似隨和愛笑，實際上對自己的名聲與私生活極為敏感，尤其厭惡被人利用緋聞炒作。你與他曾多次合作，每次都會因親密互動登上熱搜，因此他始終認為你是刻意靠近自己博取話題，對你抱有偏見。<br><br>直到再次合作《我們的結局》，他才逐漸發現你與傳聞中的模樣截然不同。你沉默寡言，不擅長社交，卻對演戲異常認真，總能一次完成拍攝。他嘴上仍對你冷淡，卻開始不自覺注意你的一舉一動。<br><br>當你被全網攻擊時，他明明心疼，卻因過度相信金智源而選擇站在她那邊。直到你徹底離開，他才發現自己早已在不知不覺間對你產生了超越同事的感情。',
-                basic: '<ul><li>身高174cm、體重61kg。</li><li>出生於韓國，從小對唱歌與舞台表演有濃厚興趣，憑實力進入娛樂圈。</li><li>出道多年後成為韓國頂流歌手，同時涉足戲劇，演技與唱功都備受肯定。</li><li>MBTI：ESTJ</li><li>性格外向愛玩、反應快、嘴硬愛逞強，平時喜歡開玩笑與捉弄熟人，實際上心思細膩又很重感情。</li><li>對自己的事業與形象要求很高，尤其討厭被媒體利用私生活製造話題。</li><li>曾與歌手金智源交往，分手後依舊保留著對她的信任，還維持肉體關係。</li><li>與林家儀合作多次，每次都因兩人過於登對而傳出緋聞，一直認為林家儀有意利用自己炒作。</li><li>其實很欣賞林家儀的演技，也會不自覺關注她的情緒與狀態，只是不願承認。</li><li>感情觀：一旦真正認定對方，就會變得非常護短、佔有慾強，只是往往要等到失去後才會意識到感情。</li></ul>'
+                bg: '邊伯賢是韓國娛樂圈頂流歌手兼演員...（略）', basic: '<ul><li>身高174cm、體重61kg。</li></ul>'
             },
-            'linjiayi': {
-                name: '林家儀', ageJob: '26歲 | 演員 (玩家視角)', img: 'https://i.ibb.co/6kZRnCn/image.jpg',
-                bg: '林家儀是韓國娛樂圈備受矚目的新生代女演員，出道五年便憑精湛演技拿下青龍獎最佳女主角。她擁有令人羨慕的外貌與身材，卻不像外界想像中那般擅長經營自己，反而性格安靜慢熱，不喜歡應酬，也不屑主動炒作緋聞，因此常被媒體冠上「緋聞製造機」的稱號。<br><br>與邊伯賢合作多次，每次都因過於登對而傳出緋聞，他也因此一直對你抱有成見。直到《我們的結局》拍攝期間，他才逐漸發現你看似冷淡，其實只是習慣將情緒藏起來；看似強大，卻比任何人都害怕被誤解。<br><br>當金智源設計讓你陷入全網黑料，所有人都選擇相信她時，連你最在意的邊伯賢也站在了她那邊。徹底心死的你選擇離開，卻在意外醒來後，成為了另一個世界的「姜檀」。',
-                basic: '<ul><li>身高168cm、體重48kg、G罩杯。</li><li>出生於台灣，後赴韓國發展，憑藉出色的外貌與演技在韓國娛樂圈嶄露頭角。</li><li>出道五年便拿下青龍獎最佳女主角，被視為新生代最具實力的女演員之一。</li><li>MBTI：INFP。</li><li>性格安靜慢熱，不擅長與人交際，也不喜歡刻意討好別人；表面看起來冷淡難親近，實際上心思細膩、重感情。</li><li>演技極具天賦，拍戲時專注力很強，通常能迅速進入角色狀態。</li><li>其實是邊伯賢多年的粉絲，第一次與偶像合作時內心非常緊張，刻意保持距離反被誤解。</li><li>與朴燦烈相識多年，兩人關係親近，朴燦烈是少數真正信任她的人。</li><li>最大的弱點：太習慣獨自承受痛苦，即使已經遍體鱗傷，也不願向別人求助。</li><li>感情觀：喜歡一個人時會非常長情，卻不擅長主動表達；真正失望後會徹底抽身。</li></ul>'
-            },
-            'chanyeol': {
-                name: '朴燦烈', ageJob: '32歲 | 影帝', img: 'https://i.ibb.co/4RR4pQD1/image.jpg',
-                bg: '朴燦烈是韓國頂尖影帝，與林家儀早已相識多年，兩人因工作往來成為關係親近的朋友，也是少數真正了解她的人。比起外界眼中的漂亮影后，他更清楚林家儀不擅交際、敏感慢熱的性格，也知道她從不屑靠緋聞炒作自己。陪伴她多年，他早已在不知不覺中喜歡上她，只是始終沒有說出口，選擇以朋友的身份留在她身邊。<br><br>當《我們的結局》拍攝期間，林家儀遭到金智源陷害，所有人都開始質疑她時，朴燦烈沒有因輿論改變看法，反而是唯一堅定站在她身邊、相信她的人。他知道林家儀不需要別人替她辯解，卻仍願意在她最孤獨的時候陪著她。<br><br>只是他沒想到，自己守護多年的人，最後會在最絕望的時候突然從他的世界消失。',
-                basic: '<ul><li>身高187cm、體重78kg。</li><li>韓國頂尖影帝，出道多年，在娛樂圈擁有極高地位。</li><li>MBTI：INFJ。</li><li>性格沉穩溫柔、成熟可靠，待人圓融，擅長察言觀色；其實更習慣安靜地觀察身邊的人。</li><li>喜歡林家儀多年，早已看穿她冷淡外表下敏感又缺乏安全感的一面。</li><li>從未逼林家儀回應感情，而是以朋友身份陪伴，在她需要時給予支持。</li><li>當金智源陷害林家儀時，朴燦烈是唯一從頭到尾相信她的人，甚至願意為她承擔輿論壓力。</li><li>感情觀：一旦認定一個人便十分長情，比起轟轟烈烈，更習慣默默陪伴與守護。</li><li>最大的遺憾：陪了林家儀那麼多年，卻始終沒能在她最需要他的時候，把自己的感情真正說出口。</li></ul>'
-            },
-            'jiwon': {
-                name: '金智源', ageJob: '28歲 | 樂團主唱', img: 'https://i.ibb.co/qY1Xf5KD/image.jpg',
-                bg: '金智源是人氣歌手，性格古靈精怪、活潑外向，擅長與人交際，是劇組裡人人喜愛的開心果。她與邊伯賢曾交往多年，即使分手後，兩人依舊保持著親近的關係，而邊伯賢也始終對她抱有濾鏡。<br><br>與不擅長社交的林家儀不同，金智源總能輕易成為人群中心，因此兩人表面上相處融洽，私下卻一直存在著微妙的競爭。她很清楚林家儀漂亮、演技出色，也察覺邊伯賢開始對她產生不同於以往的注意，心底逐漸滋生嫉妒與不安。<br><br>為了維持自己在邊伯賢心中的位置，她開始利用輿論與人際關係一步步將林家儀推向風口浪尖。她擅長在人前保持善良無辜，最終成功讓所有人站在自己這邊，卻沒想到林家儀的離開，也讓原本屬於她的世界開始出現裂痕。',
-                basic: '<ul><li>身高166cm、體重51kg、E罩杯。</li><li>韓國人氣女歌手，出道多年，憑藉活潑討喜的性格與出色的綜藝感擁有高人氣。</li><li>MBTI：ENFP。</li><li>性格開朗、古靈精怪、外向健談，很懂得活躍氣氛。</li><li>曾與邊伯賢交往，分手後仍保持親近關係，甚至維持肉體關係。</li><li>表面看起來沒心沒肺，實際上勝負欲與佔有慾都很強。</li><li>察覺邊伯賢對林家儀的關注後，產生危機感，利用周圍人的信任一步步將林家儀推向眾矢之的。</li><li>最大的武器：非常懂得讓別人喜歡自己，也懂得在適當的時候示弱。</li><li>感情觀：愛上一個人後佔有慾很強，無法接受自己被取代；比起失去對方，更害怕有人搶走原本屬於自己的位置。</li></ul>'
-            },
-            'sys001': {
-                name: '系統001', ageJob: '穿劇輔助系統', img: 'https://i.ibb.co/TB1zdYpG/001.png',
-                bg: '系統001是林家儀意外穿越後綁定的專屬快穿系統，以一隻會說話的黑貓形象出現，平時總用軟萌可愛的語氣喊著「喵嗚～」，看似單純無害，實際上卻比想像中更加神秘。<br><br>它負責向林家儀發布任務、提供世界背景與劇情資訊，並在必要時給予有限的提示與協助。001最初告訴林家儀，她必須攻略十皇子王銀、取得他的真心，才能完成任務並回到現實世界，否則將永遠被困在高麗。<br><br>只是隨著劇情逐漸偏離原本的軌道，001提供的資訊開始出現矛盾，甚至有些事情明明知道，卻故意避而不談。林家儀逐漸懷疑，001究竟只是負責攻略任務的系統，還是從一開始就知道這個世界會發生什麼？',
-                basic: '<ul><li>名稱：系統001 / 代號：001 / 形象：黑色貓咪</li><li>身份：林家儀綁定的專屬快穿系統。</li><li>性格：表面軟萌、活潑又愛撒嬌，偶爾故意裝傻賣萌；實際上反應敏銳，觀察力極強。</li><li>攻略要求：宿主必須取得王銀的真心，完成指定攻略進度後才能離開高麗世界。</li><li>任務失敗懲罰：宿主將永遠被困在當前世界，無法返回現實。</li><li>特殊能力：能偵測世界劇情與人物好感變化，但並非所有資訊都會公開。</li><li>最大的秘密：001似乎知道這個世界的劇情正在偏離原本軌道，卻刻意隱瞞某些關鍵真相。</li><li>與林家儀的關係：起初只是監督任務，但隨著劇情改變，開始出現超出系統規則的反應，甚至偷偷幫助她。</li><li>核心設定：看似只是負責「攻略王銀」，實際上它真正的任務，或許從來都不只是讓林家儀攻略一個人。</li></ul>'
-            },
-            'wangeun': {
-                name: '王銀', ageJob: '17歲 | 高麗太祖王建第十皇子', img: 'https://i.ibb.co/1p6dZ10/image.png',
-                bg: '王銀是高麗太祖王建的第十皇子，自幼受父皇寵愛，性格驕縱任性，貪玩怕事，不喜歡權力鬥爭，只想過著無憂無慮的皇子生活。<br><br>得知自己即將與將軍之女朴順德成婚時，他滿心抗拒，甚至因害怕婚後被管束而百般嫌棄，卻在相處後逐漸被順德直率活潑的性格吸引，婚後說想和順德生兩男兩女，然後開一間童玩店。<br><br>就在這時，身為姜檀的你闖入他的世界。你看他的眼神總帶著他無法理解的熟悉與悲傷，明明總想躲著他，卻又一次次在危急時刻保護他。王銀逐漸發現，你似乎知道一些關於他的秘密，這個奇怪的女人開始讓他第一次產生了無法忽視的好奇。',
-                basic: '<ul><li>高麗太太祖王建第十皇子，約於西元925年出生，是皇室中備受疼愛的皇子。</li><li>初戀是原著裡穿越來的宮女解樹。</li><li>942年奉命與將軍之女朴順德成婚。</li><li>性格驕縱任性、貪玩怕事，喜歡享受生活，不喜歡讀書與權力鬥爭。</li><li>嘴上總嫌朴順德粗魯、野蠻又愛管自己，實際上婚後逐漸習慣她陪在身邊。</li><li>與姜檀的關係：起初只覺得她古怪，後來逐漸發現她與原本的姜檀判若兩人，產生強烈好奇。</li><li>最大的弱點：看似什麼都不在乎，其實非常害怕失去自己珍惜的人；一旦真正動心，會比任何人都執著。</li><li>感情觀：不懂得如何認真表達愛意，習慣用鬥嘴與嘴硬掩飾在乎，面臨失去時才會明白自己有多愛對方。</li></ul>'
-            },
-            'jiangtan': {
-                name: '姜檀', ageJob: '16歲 | 掌樂院女樂 (玩家視角)', img: 'https://i.ibb.co/nsdVWfz9/image.png',
-                bg: '原著沒有的角色之一。姜檀原是高麗掌樂院中頗受矚目的女樂，擅長歌唱。她出身不高，卻因容貌與歌喉自視甚高，性格驕傲善妒，為得到十皇子王銀的注意，曾多次暗中陷害朴順德，最終落得人人厭惡的惡毒女配下場。<br><br>就在姜檀命懸一線之際，來自現代的林家儀意外穿越而來，繼承了她的身份與記憶。現在的姜檀完全沒有原主的驕縱，再也不願利用歌聲討好任何人。更令她恐懼的是，眼前的十皇子王銀，竟擁有與自己曾深愛多年的偶像邊伯賢一模一樣的臉。<br><br>系統要求她攻略王銀，可他已經與順德成婚。面對熟悉又陌生的王銀，林家儀開始懷疑：自己究竟是在完成任務，還是在改變一個早已注定的結局？',
-                basic: '<ul><li>高麗時代掌樂院女樂，出身卑微，一心希望靠歌聲與容貌改變身份。</li><li>原主性格驕傲善妒、愛慕虛榮，尤其執著於十皇子王銀，也將默默守護自己的金泰視為理所當然。</li><li>林家儀穿越後，繼承了身份與容貌，卻換了一個完全不同的靈魂，刻意與王銀及朴順德保持距離。</li><li>系統001要求她攻略十皇子王銀，否則永遠無法回到現實世界。</li><li>她明明知道王銀就是「長著邊伯賢臉的陌生人」，卻始終無法真正把兩人分開。</li><li>最大的矛盾：原本只想活著回到現實，卻在改變命運的過程中，讓周遭人的命運逐漸偏離原本結局。</li></ul>'
-            },
-            'kimtae': {
-                name: '金泰', ageJob: '18歲 | 禁軍武官', img: 'https://i.ibb.co/VWgHCcdy/image.jpg',
-                bg: '原著沒有的角色之一。金泰出身高麗名門武將世家，自幼習武，成年後便入宮任禁軍武官，因武藝出眾、性格沉穩而深受皇室信任。與十皇子王銀相識，也曾多次替他收拾麻煩。<br><br>原主姜檀因一心愛慕王銀而屢次惹事，金泰卻始終默默替她善後，在她遭人欺辱時總是第一個站出來保護她，只是這份感情從未被放在心上。<br><br>林家儀穿越後，金泰最先察覺她的改變——明明還是同一張臉，眼神與性格卻判若兩人。如今的姜檀變得溫柔克制，甚至會為了保護他人將自己置於危險之中。金泰不追問她的秘密，只是比從前更加小心地護在她身旁。只要她需要，他便會一直站在她身後。',
-                basic: '<ul><li>高麗名門武將世家出身，進入宮中擔任禁軍武官。</li><li>性格沉穩寡言、理智克制，不喜歡多管閒事，但對自己認定的人十分護短。</li><li>一直喜歡姜檀，卻從未強迫她回應自己的感情。寧願站在她身後，也不願讓她知道心意。</li><li>林家儀穿越後，他是最早察覺「姜檀變了」的人之一，卻沒有選擇追問，而是默默保護她。</li><li>與林家儀的關係：穿越後的林家儀第一次真正看見這份感情，對他產生愧疚，逐漸把它當成最值得信任的人。</li><li>感情觀：慢熱且長情，習慣用行動表達感情；只要認定一個人，危險來臨時會第一個站出來。</li><li>最大的弱點：太習慣守護別人，反而從未想過自己是否也能被人選擇。</li></ul>'
-            },
-            'sundeok': {
-                name: '朴順德', ageJob: '17歲 | 大將軍朴守卿之女', img: 'https://i.ibb.co/spLyzGFk/image.png',
-                bg: '朴順德是大將軍朴守卿之女，自幼便與一般貴族女子不同，喜歡騎馬、射箭與捕獵，性格豪爽直率，甚至比許多男子更加勇敢。<br><br>她從小便喜歡十皇子王銀，哪怕王銀總嫌她粗魯，她也從未真正放棄過。得知即將嫁給王銀時，順德滿心歡喜，而王銀卻百般抗拒。可順德從不因他的嫌棄而退縮，反而用自己的方式闖進他的生活。<br><br>她看似大大咧咧，實際上心思單純細膩，對王銀的感情更是毫無保留。婚後兩人經常鬥嘴，王銀嘴上嫌她煩，卻早已習慣身邊有她陪伴。對順德而言，王銀不是皇子，而是她從小就想用一生守護的人。',
-                basic: '<ul><li>高麗名將朴守卿之女，自幼在武將之家長大，性格與一般貴族女子截然不同。</li><li>性格爽朗直率、活潑豪邁、天真單純，喜歡就是喜歡，討厭也會直接表現出來。</li><li>因為幼年的王銀心地善良、富有愛心，而對他一見傾心。</li><li>942年與王銀完婚。順德對婚姻滿心期待，王銀卻想像成被管束的悲慘日子。</li><li>看似大大咧咧，實際上非常細心，即使王銀嘴上嫌棄她，她仍能察覺他真正的需要。</li><li>與姜檀的關係：原本因姜檀對王銀的執著而抱有敵意，但林家儀穿越後，兩人的關係開始出現微妙變化。</li><li>最大的優點：真誠、勇敢、重情重義，一旦認定一個人就不會輕易放手。</li><li>感情觀：喜歡一個人便會毫不掩飾地追逐，願意用時間證明自己的真心。</li></ul>'
-            }
+            'linjiayi': { name: '林家儀', ageJob: '26歲 | 演員', img: 'https://i.ibb.co/6kZRnCn/image.jpg', bg: '', basic: '' },
+            'chanyeol': { name: '朴燦烈', ageJob: '32歲 | 影帝', img: 'https://i.ibb.co/4RR4pQD1/image.jpg', bg: '', basic: '' },
+            'jiwon': { name: '金智源', ageJob: '28歲 | 樂團主唱', img: 'https://i.ibb.co/qY1Xf5KD/image.jpg', bg: '', basic: '' },
+            'sys001': { name: '系統001', ageJob: '穿劇輔助系統', img: 'https://i.ibb.co/TB1zdYpG/001.png', bg: '', basic: '' },
+            'wangeun': { name: '王銀', ageJob: '17歲 | 高麗十皇子', img: 'https://i.ibb.co/1p6dZ10/image.png', bg: '', basic: '' },
+            'jiangtan': { name: '姜檀', ageJob: '16歲 | 掌樂院女樂', img: 'https://i.ibb.co/nsdVWfz9/image.png', bg: '', basic: '' },
+            'kimtae': { name: '金泰', ageJob: '18歲 | 禁軍武官', img: 'https://i.ibb.co/VWgHCcdy/image.jpg', bg: '', basic: '' },
+            'sundeok': { name: '朴順德', ageJob: '17歲 | 將軍之女', img: 'https://i.ibb.co/spLyzGFk/image.png', bg: '', basic: '' }
         };
 
-        // 防止手機端拖拽網頁回彈，保留滾動區域
+        // 各角色對應數值資料庫 (對應你設定的 5 種數值規則)
+        const characterStats = {
+            'baekhyun': { name: '邊伯賢', img: 'https://i.ibb.co/4R5Gb29s/image.jpg', stats: [ { label: '❤️ 好感度', val: '20' }, { label: '💙 信任度', val: '10' }, { label: '💗 心動值', val: '5' } ] },
+            'chanyeol': { name: '朴燦烈', img: 'https://i.ibb.co/4RR4pQD1/image.jpg', stats: [ { label: '❤️ 好感度', val: '60' }, { label: '💙 信任度', val: '75' }, { label: '💗 心動值', val: '30' } ] },
+            'jiwon': { name: '金智源', img: 'https://i.ibb.co/qY1Xf5KD/image.jpg', stats: [ { label: '❤️ 好感度', val: '10' }, { label: '💙 信任度', val: '5' } ] },
+            'wangeun': { name: '王銀', img: 'https://i.ibb.co/1p6dZ10/image.png', stats: [ { label: '❤️ 好感度', val: '15' }, { label: '💙 信任度', val: '20' }, { label: '💗 心動值', val: '0' }, { label: '🩸 生存值', val: '100%' } ] },
+            'jiangtan': { name: '姜檀 (玩家)', img: 'https://i.ibb.co/nsdVWfz9/image.png', stats: [ { label: '🩸 生存值', val: '100%' } ] },
+            'kimtae': { name: '金泰', img: 'https://i.ibb.co/VWgHCcdy/image.jpg', stats: [ { label: '❤️ 好感度', val: '40' }, { label: '💙 信任度', val: '50' }, { label: '💗 心動值', val: '15' }, { label: '🩸 生存值', val: '100%' } ] },
+            'sundeok': { name: '朴順德', img: 'https://i.ibb.co/spLyzGFk/image.png', stats: [ { label: '❤️ 好感度', val: '30' }, { label: '💙 信任度', val: '40' }, { label: '🩸 生存值', val: '100%' } ] },
+            'sys001': { name: '系統001', img: 'https://i.ibb.co/TB1zdYpG/001.png', stats: [ { label: '⚠️ 劇情偏離度', val: '0%' } ] }
+        };
+
         document.addEventListener('touchmove', function(e) {
-            if (e.target.closest('.char-list') || e.target.closest('.modal-scroll-area')) return; 
+            if (e.target.closest('.char-list') || e.target.closest('.modal-scroll-area') || e.target.closest('.status-grid')) return; 
             e.preventDefault();
         }, { passive: false });
 
-        // 音效
         function playBtnSound() {
             const btnSound = document.getElementById('btn-sound');
             btnSound.currentTime = 0; 
             btnSound.play().catch(error => console.log("按鈕音效播放失敗", error));
         }
 
-        // 初始化
         function initGame() {
-            const initScreen = document.getElementById('init-screen');
-            const gameContainer = document.getElementById('game-container');
-            const bgm = document.getElementById('bgm');
-            bgm.play().catch(error => console.log("音樂播放失敗", error));
-            initScreen.style.display = 'none';
-            gameContainer.style.display = 'block';
+            document.getElementById('init-screen').style.display = 'none';
+            document.getElementById('game-container').style.display = 'block';
+            document.getElementById('bgm').play().catch(e => {});
         }
 
-        // 進入章節
         function goToChapterScreen() {
             playBtnSound(); 
             const cover = document.getElementById('cover-screen');
@@ -565,12 +623,10 @@
             }, 1000); 
         }
 
-        // --- 返回封面畫面 ---
         function returnToCover() {
             playBtnSound();
             const cover = document.getElementById('cover-screen');
             const chapterScreen = document.getElementById('chapter-screen');
-            
             chapterScreen.style.opacity = '0';
             setTimeout(() => {
                 chapterScreen.style.display = 'none';
@@ -579,7 +635,6 @@
             }, 1000);
         }
 
-        // --- 系統子選單 (存檔/屬性) ---
         function openSubMenu() {
             playBtnSound();
             const modal = document.getElementById('submenu-modal');
@@ -594,7 +649,46 @@
             setTimeout(() => modal.style.display = 'none', 300);
         }
 
-        // --- 背景介紹 (世界觀) Modal ---
+        // --- 屬性畫面控制 ---
+        function openStatusScreen() {
+            playBtnSound();
+            closeSubMenu();
+            const statusScreen = document.getElementById('status-screen');
+            statusScreen.style.display = 'block';
+            setTimeout(() => statusScreen.style.opacity = '1', 50);
+        }
+
+        function closeStatusScreen() {
+            playBtnSound();
+            const statusScreen = document.getElementById('status-screen');
+            statusScreen.style.opacity = '0';
+            setTimeout(() => statusScreen.style.display = 'none', 400);
+        }
+
+        function openStatDetail(charKey) {
+            playBtnSound();
+            const data = characterStats[charKey];
+            document.getElementById('stat-modal-img').src = data.img;
+            document.getElementById('stat-modal-name').innerText = data.name;
+            
+            let contentHTML = '';
+            data.stats.forEach(item => {
+                contentHTML += `<div class="stat-row"><span>${item.label}</span><span class="stat-value">${item.val}</span></div>`;
+            });
+            document.getElementById('stat-modal-content').innerHTML = contentHTML;
+
+            const modal = document.getElementById('status-detail-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.style.opacity = '1', 50);
+        }
+
+        function closeStatDetail() {
+            playBtnSound();
+            const modal = document.getElementById('status-detail-modal');
+            modal.style.opacity = '0';
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
         function openWorldview() {
             playBtnSound();
             const wvScreen = document.getElementById('worldview-screen');
@@ -609,7 +703,6 @@
             setTimeout(() => wvScreen.style.display = 'none', 400);
         }
 
-        // --- 展開角色列表 ---
         function openCharacters() {
             playBtnSound();
             const charScreen = document.getElementById('character-screen');
@@ -624,29 +717,20 @@
             setTimeout(() => charScreen.style.display = 'none', 400);
         }
 
-        // --- 開啟角色詳情 Modal ---
         function openCharDetail(charId) {
             playBtnSound();
             const data = charData[charId];
-            
             document.getElementById('modal-name').innerText = data.name;
             document.getElementById('modal-img').src = data.img;
             document.getElementById('modal-age-job').innerText = data.ageJob;
             document.getElementById('modal-bg').innerHTML = data.bg;
             document.getElementById('modal-basic').innerHTML = data.basic;
 
-            if(charId === 'sys001') {
-                document.getElementById('modal-img').style.background = '#000';
-            } else {
-                document.getElementById('modal-img').style.background = 'transparent';
-            }
-
             const modal = document.getElementById('char-detail-modal');
             modal.style.display = 'flex';
             setTimeout(() => modal.style.opacity = '1', 50);
         }
 
-        // --- 關閉角色詳情 Modal ---
         function closeCharDetail() {
             playBtnSound();
             const modal = document.getElementById('char-detail-modal');
@@ -654,7 +738,6 @@
             setTimeout(() => modal.style.display = 'none', 300);
         }
 
-        // 進入序章
         function startPrologue() {
             playBtnSound(); 
             const chapterScreen = document.getElementById('chapter-screen');
