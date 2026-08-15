@@ -232,10 +232,11 @@
         <div id="chapter-screen">
             <img id="chapter-image" src="https://i.ibb.co/3yrFxt0V/image.png" alt="章節背景">
             <div id="chapter-buttons">
-                <!-- 新增背景介紹按鈕 -->
                 <div class="menu-btn" onclick="openWorldview()">背景介紹</div>
                 <div class="menu-btn" onclick="openCharacters()">人物介紹</div>
                 <div class="menu-btn" onclick="startPrologue()">序章</div>
+                <!-- 新增：返回封面按鈕 -->
+                <div class="menu-btn" onclick="returnToCover()">返回封面</div>
             </div>
         </div>
 
@@ -519,6 +520,20 @@
                 chapterScreen.style.display = 'block';
                 setTimeout(() => chapterScreen.style.opacity = '1', 50);
             }, 1000); 
+        }
+
+        // --- 新增：返回封面畫面 ---
+        function returnToCover() {
+            playBtnSound();
+            const cover = document.getElementById('cover-screen');
+            const chapterScreen = document.getElementById('chapter-screen');
+            
+            chapterScreen.style.opacity = '0';
+            setTimeout(() => {
+                chapterScreen.style.display = 'none';
+                cover.style.display = 'block';
+                setTimeout(() => cover.style.opacity = '1', 50);
+            }, 1000);
         }
 
         // --- 背景介紹 (世界觀) Modal ---
