@@ -96,10 +96,10 @@
             width: 100%; gap: 15px; z-index: 2;
         }
 
-        /* --- 人物介紹介面 (角色列表) --- */
-        #character-screen {
+        /* --- 人物介紹 / 背景介紹 共通底圖設定 --- */
+        #character-screen, #worldview-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://i.ibb.co/M581JPXy/78503-AE6-72-F3-4916-BBB8-03447-DF94-DFE.png');
+            background-image: url('https://i.ibb.co/3yrFxt0V/image.png'); /* 使用與章節相同的背景 */
             background-size: cover; background-position: center;
             display: none; z-index: 20; opacity: 0; transition: opacity 0.4s ease;
         }
@@ -132,6 +132,7 @@
         .char-list::-webkit-scrollbar-track, .modal-scroll-area::-webkit-scrollbar-track { background: transparent; }
         .char-list::-webkit-scrollbar-thumb, .modal-scroll-area::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.5); border-radius: 4px; }
 
+        /* 人物卡片樣式 */
         .char-card {
             display: flex; background: rgba(20, 20, 20, 0.65); border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -147,18 +148,28 @@
         .char-age-job { font-size: 0.75rem; color: #a89a7c; font-weight: normal; margin-left: 8px; letter-spacing: 0; }
         .char-desc { color: #ccc; font-size: 0.85rem; line-height: 1.5; text-align: justify; }
 
+        /* 背景介紹 (世界觀) 專屬區塊樣式 */
+        .world-section {
+            background: rgba(20, 20, 20, 0.75); border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .world-section h3 {
+            color: #d4af37; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 12px; border-bottom: 1px dashed rgba(212, 175, 55, 0.4); padding-bottom: 8px;
+        }
+        .world-section p {
+            color: #ddd; font-size: 0.95rem; line-height: 1.8; text-align: justify; margin-bottom: 10px;
+        }
+        .world-section p:last-child { margin-bottom: 0; }
+        .highlight { color: #f7e0b5; font-weight: bold; }
+
         /* --- 角色詳情彈出視窗 (Modal) --- */
         #char-detail-modal {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(5, 5, 5, 0.95); z-index: 30; display: none; opacity: 0; transition: opacity 0.3s ease;
             flex-direction: column;
         }
-        .modal-scroll-area {
-            flex: 1; overflow-y: auto; padding: 20px; padding-bottom: 50px;
-        }
-        .detail-top {
-            display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 10px;
-        }
+        .modal-scroll-area { flex: 1; overflow-y: auto; padding: 20px; padding-bottom: 50px; }
+        .detail-top { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; margin-top: 10px; }
         .detail-img-large {
             width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: top;
             border: 3px solid #d4af37; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); margin-bottom: 12px;
@@ -221,8 +232,87 @@
         <div id="chapter-screen">
             <img id="chapter-image" src="https://i.ibb.co/3yrFxt0V/image.png" alt="章節背景">
             <div id="chapter-buttons">
+                <!-- 新增背景介紹按鈕 -->
+                <div class="menu-btn" onclick="openWorldview()">背景介紹</div>
                 <div class="menu-btn" onclick="openCharacters()">人物介紹</div>
                 <div class="menu-btn" onclick="startPrologue()">序章</div>
+            </div>
+        </div>
+
+        <!-- 2.5. 背景介紹介面 (世界觀) -->
+        <div id="worldview-screen">
+            <div class="char-overlay"></div>
+            <div class="char-content">
+                <div class="char-header">
+                    <h2>世界觀設定</h2>
+                    <div class="close-btn" onclick="closeWorldview()">返回</div>
+                </div>
+                <div class="char-list">
+                    
+                    <div class="world-section">
+                        <h3>一、世界設定</h3>
+                        <p><span class="highlight">現代世界｜2026年</span><br>林家儀是出道五年的知名女演員，憑藉外貌與演技在娛樂圈站穩腳跟，卻因緋聞、競爭與輿論陷入人生低谷，最終成為快穿事件的起點。</p>
+                        <p><span class="highlight">高麗世界｜西元942年，太祖二十五年</span><br>這是一個以高麗歷史與《步步驚心・麗》為基礎形成的架空平行世界。此時高麗王建仍在位，皇室、王族、武將世家與宮廷勢力彼此牽制。<br><br>故事開始時，十皇子王銀剛與將軍之女朴順德成婚。<br>林家儀卻在此時穿越，成為原著中不存在的角色——姜檀。</p>
+                    </div>
+
+                    <div class="world-section">
+                        <h3>二、世界特殊規則</h3>
+                        <p>這個世界並非完全按照原劇情運行，而是以原著為基礎、會因人物選擇而改變的平行世界。</p>
+                        <p>林家儀知道部分原著劇情與人物命運，但這裡的人並不知道自己是「劇中角色」。對他們而言，高麗就是唯一真實的世界。</p>
+                        <p>因此，一旦林家儀改變某個人的選擇，原本的劇情便可能產生蝴蝶效應，甚至出現原著沒有的結果。她以為自己穿進的是一部電視劇，卻逐漸發現這裡的人都有真正的人生。</p>
+                    </div>
+
+                    <div class="world-section">
+                        <h3>三、王銀與朴順德</h3>
+                        <p>十皇子王銀出身皇室，性格活潑直率，沒有強烈爭奪皇位的野心，珍惜身邊的人。</p>
+                        <p>朴順德則出身武將世家，是將軍之女，性格爽朗堅韌，自幼習武，與一般高麗貴族女子不同。</p>
+                        <p>兩人已經成婚，且感情深厚。這段婚姻卻成為原主姜檀嫉妒與執念的來源。</p>
+                    </div>
+
+                    <div class="world-section">
+                        <h3>四、原主姜檀</h3>
+                        <p>姜檀原是高麗掌樂院中頗受矚目的女樂，擅長歌唱，因嗓音優美而經常受宮中貴族召見。她出身不高，卻因容貌與歌喉自視甚高，性格驕傲善妒。</p>
+                        <p>她深深愛慕十皇子王銀，卻因王銀與朴順德成婚而心生嫉妒。為得到王銀的注意，她曾在宴席上藉歌譏諷順德，甚至暗中設計陷害。一次次的嫉妒與算計，使她逐漸成為人人厭惡的惡毒女配。</p>
+                        <p>林家儀穿越後，繼承姜檀的身份與部分記憶，卻沒有繼承她對王銀的執念。她決定遠離王銀、不再傷害順德，只想改變姜檀原本悲慘的命運。</p>
+                    </div>
+
+                    <div class="world-section">
+                        <h3>五、金泰</h3>
+                        <p>金泰出身高麗名門武將世家，自幼習武，成年後入宮擔任禁軍武官。他武藝出眾、性格沉穩，深受皇室信任，也因經常出入宮中而與十皇子王銀相識。</p>
+                        <p>王銀性格活潑，偶爾惹出麻煩，金泰常替他善後，兩人因此建立深厚情誼。</p>
+                        <p>金泰與原主姜檀也早已相識。姜檀身份卑微又性格驕縱，因一心愛慕王銀而屢次惹事。金泰卻始終默默替她善後，在她遭人欺辱時第一個站出來保護她。只是姜檀從未將這份感情放在心上。</p>
+                    </div>
+
+                    <div class="world-section">
+                        <h3>六、林家儀與金泰</h3>
+                        <p>林家儀穿越後，第一個察覺「姜檀變了」的人就是金泰。</p>
+                        <p>明明是同一張臉，眼神與性格卻判若兩人。以前的姜檀為得到王銀不惜傷害他人，如今卻刻意與王銀保持距離；以前驕傲善妒，如今變得溫柔克制，甚至願意為保護別人將自己置於危險之中。</p>
+                        <p>金泰不知道她究竟經歷了什麼，也沒有追問。他只是比從前更加小心地守在她身旁。對他而言，不論她是否還是曾經的姜檀，只要她需要，他便會一直站在她身後。</p>
+                        <p>而林家儀也逐漸發現，這個曾被原主忽視的人，或許才是最早真正看見她的人。</p>
+                    </div>
+
+                    <div class="world-section">
+                        <h3>七、貓貓系統001</h3>
+                        <p>林家儀穿越後，腦海中出現神秘的系統001。它以可愛的貓咪形象出現，說話總帶著「喵嗚～」，卻掌握著這個世界大量未知的秘密。</p>
+                        <p>系統發布唯一主線任務：<br><span class="highlight">攻略十皇子王銀，取得他的真心。</span><br>任務成功：回到2026年的現實世界。<br>任務失敗：永久被困在942年的高麗世界。</p>
+                        <p>然而，王銀已經與朴順德成婚，而且兩人感情深厚。更讓林家儀困惑的是，她越想避開原著劇情，世界便越開始失控。</p>
+                    </div>
+
+                    <div class="world-section">
+                        <h3>八、劇情偏離</h3>
+                        <p>林家儀不再陷害朴順德，兩人反而逐漸成為朋友。<br>她刻意遠離王銀，王銀卻開始注意這個與傳聞完全不同的姜檀。<br>金泰則因察覺她的改變，逐漸將更多目光放在她身上。</p>
+                        <p>原本應該發生的事件開始改變：有人沒有死，有人提前相遇，有人愛上了原本不該愛的人。甚至連王銀與朴順德原本的命運，也開始出現偏差。</p>
+                    </div>
+
+                    <div class="world-section">
+                        <h3>九、世界核心</h3>
+                        <p>林家儀最初只想完成任務、回到2026年。</p>
+                        <p>可相處越久，她越無法將王銀、順德、金泰等人當成「角色」。他們不是劇本裡的名字，而是942年真正活著的人。</p>
+                        <p>而她也逐漸開始思考：<br>如果完成任務便能回到現實，是否代表她必須傷害這個世界的人？<br>如果選擇留下，又是否願意放棄2026年的人生？</p>
+                        <p>這是一個關於命運、選擇與真心的故事。當既定劇情開始崩壞，林家儀終將發現——<br><br><span class="highlight">她真正要改變的，或許從來不只是姜檀的命運，而是所有人的結局。</span></p>
+                    </div>
+
+                </div>
             </div>
         </div>
 
@@ -386,7 +476,7 @@
             'kimtae': {
                 name: '金泰', ageJob: '18歲 | 禁軍武官', img: 'https://i.ibb.co/VWgHCcdy/image.jpg',
                 bg: '原著沒有的角色之一。金泰出身高麗名門武將世家，自幼習武，成年後便入宮任禁軍武官，因武藝出眾、性格沉穩而深受皇室信任。與十皇子王銀相識，也曾多次替他收拾麻煩。<br><br>原主姜檀因一心愛慕王銀而屢次惹事，金泰卻始終默默替她善後，在她遭人欺辱時總是第一個站出來保護她，只是這份感情從未被放在心上。<br><br>林家儀穿越後，金泰最先察覺她的改變——明明還是同一張臉，眼神與性格卻判若兩人。如今的姜檀變得溫柔克制，甚至會為了保護他人將自己置於危險之中。金泰不追問她的秘密，只是比從前更加小心地護在她身旁。只要她需要，他便會一直站在她身後。',
-                basic: '<ul><li>高麗名門武將世家出身，進入宮中擔任禁軍武官。</li><li>性格沉穩寡言、理智克制，不喜歡多管閒事，但對自己認定的人十分護短。</li><li>一直喜歡姜檀，卻從未強迫她回應自己的感情。寧願站在她身後，也不願讓她知道心意。</li><li>林家儀穿越後，他是最早察覺「姜檀變了」的人之一，卻沒有選擇追問，而是默默保護她。</li><li>與林家儀的關係：穿越後的林家儀第一次真正看見這份感情，對他產生愧疚，逐漸把他當成最值得信任的人。</li><li>感情觀：慢熱且長情，習慣用行動表達感情；只要認定一個人，危險來臨時會第一個站出來。</li><li>最大的弱點：太習慣守護別人，反而從未想過自己是否也能被人選擇。</li></ul>'
+                basic: '<ul><li>高麗名門武將世家出身，進入宮中擔任禁軍武官。</li><li>性格沉穩寡言、理智克制，不喜歡多管閒事，但對自己認定的人十分護短。</li><li>一直喜歡姜檀，卻從未強迫她回應自己的感情。寧願站在她身後，也不願讓她知道心意。</li><li>林家儀穿越後，他是最早察覺「姜檀變了」的人之一，卻沒有選擇追問，而是默默保護她。</li><li>與林家儀的關係：穿越後的林家儀第一次真正看見這份感情，對他產生愧疚，逐漸把它當成最值得信任的人。</li><li>感情觀：慢熱且長情，習慣用行動表達感情；只要認定一個人，危險來臨時會第一個站出來。</li><li>最大的弱點：太習慣守護別人，反而從未想過自己是否也能被人選擇。</li></ul>'
             },
             'sundeok': {
                 name: '朴順德', ageJob: '17歲 | 大將軍朴守卿之女', img: 'https://i.ibb.co/spLyzGFk/image.png',
@@ -431,7 +521,22 @@
             }, 1000); 
         }
 
-        // 展開角色列表
+        // --- 背景介紹 (世界觀) Modal ---
+        function openWorldview() {
+            playBtnSound();
+            const wvScreen = document.getElementById('worldview-screen');
+            wvScreen.style.display = 'block';
+            setTimeout(() => wvScreen.style.opacity = '1', 50);
+        }
+
+        function closeWorldview() {
+            playBtnSound();
+            const wvScreen = document.getElementById('worldview-screen');
+            wvScreen.style.opacity = '0';
+            setTimeout(() => wvScreen.style.display = 'none', 400);
+        }
+
+        // --- 展開角色列表 ---
         function openCharacters() {
             playBtnSound();
             const charScreen = document.getElementById('character-screen');
@@ -439,7 +544,6 @@
             setTimeout(() => charScreen.style.opacity = '1', 50);
         }
 
-        // 關閉角色列表
         function closeCharacters() {
             playBtnSound();
             const charScreen = document.getElementById('character-screen');
@@ -452,21 +556,18 @@
             playBtnSound();
             const data = charData[charId];
             
-            // 替換內容
             document.getElementById('modal-name').innerText = data.name;
             document.getElementById('modal-img').src = data.img;
             document.getElementById('modal-age-job').innerText = data.ageJob;
             document.getElementById('modal-bg').innerHTML = data.bg;
             document.getElementById('modal-basic').innerHTML = data.basic;
 
-            // 特殊處理系統001的圖片背景（因為是透明PNG）
             if(charId === 'sys001') {
                 document.getElementById('modal-img').style.background = '#000';
             } else {
                 document.getElementById('modal-img').style.background = 'transparent';
             }
 
-            // 顯示 Modal
             const modal = document.getElementById('char-detail-modal');
             modal.style.display = 'flex';
             setTimeout(() => modal.style.opacity = '1', 50);
